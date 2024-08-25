@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Test_Message</string>
+    <string name="registration">Регистрация</string>
+    <string name="Entry">Вход</string>
+    <string name="hello">Приветики, сенпай...</string>
 </resources>
