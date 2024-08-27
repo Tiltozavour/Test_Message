@@ -5,24 +5,23 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".presentation.MainActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
         android:layout_marginStart="4dp"
         android:text="@string/hello"
-        />
+        android:textSize="24sp" />
 
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-
+        android:contentDescription="TODO"
         android:padding="5dp"
         android:src="@drawable/ohayo" />
 
@@ -30,8 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="14dp"
-        app:cardUseCompatPadding="true"
-        app:cardElevation="3dp">
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,39 +39,68 @@
             android:orientation="vertical">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="14dp"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:padding="14dp"
-            android:text="@string/Entry"
-            android:background="@drawable/buttons"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="8dp"
-                android:padding="14dp"
-                android:text="@string/registration"
-                android:background="@drawable/buttons"/>
-        </LinearLayout>
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/ccp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:ccp_autoFormatNumber="true"
+                    app:ccp_defaultNameCode="RU" />
+
+
+                <EditText
+                    android:id="@+id/etNumberPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="phone"
+                    android:gravity="center"
+                    android:hint="номер телефона гони"
+                    android:inputType="phone"
+
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/butEntry"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="137dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/buttons"
+                    android:padding="14dp"
+                    android:text="@string/Entry" />
+
+                <Button
+                    android:id="@+id/butRegistration"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/buttons"
+                    android:padding="14dp"
+                    android:text="@string/registration" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-
-
-
-
-
 
 
 </LinearLayout>
