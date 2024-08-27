@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".presentation.RegistrationFragment">
+    tools:context=".pro.RegistrationFragment">
 
 
     <androidx.cardview.widget.CardView

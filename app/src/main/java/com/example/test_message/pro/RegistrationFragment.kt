@@ -1,11 +1,10 @@
-package com.example.test_message.presentation
+package com.example.test_message.pro
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.test_message.R
 import com.example.test_message.databinding.FragmentRegistrationBinding
 
 

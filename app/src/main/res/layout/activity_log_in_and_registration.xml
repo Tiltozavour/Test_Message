@@ -5,7 +5,7 @@
     android:id="@+id/ActivityRegistrationAndLogIn"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.example.test_message.presentation.RegistrationFragment"
-    tools:context=".presentation.LogInAndRegistrationActivity">
+    android:name="com.example.test_message.pro.RegistrationFragment"
+    tools:context=".pro.LogInAndRegistrationActivity">
 
 </androidx.fragment.app.FragmentContainerView>
