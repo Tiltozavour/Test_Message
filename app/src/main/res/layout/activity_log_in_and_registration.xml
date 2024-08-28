@@ -2,10 +2,10 @@
 <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ActivityRegistrationAndLogIn"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.example.test_message.pro.RegistrationFragment"
-    tools:context=".pro.LogInAndRegistrationActivity">
+    android:name="com.example.test_message.pro.presentation.RegistrationFragment"
+    tools:context=".pro.presentation.LogInAndRegistrationActivity">
 
 </androidx.fragment.app.FragmentContainerView>

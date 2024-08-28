@@ -1,4 +1,4 @@
-package com.example.test_message.pro
+package com.example.test_message.pro.presentation
 
 import android.os.Bundle
 import android.util.Log
@@ -9,14 +9,10 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.test_message.databinding.ActivityMainBinding
 import com.example.test_message.pro.domain.RegistrationEntity.UserInfo
 import com.example.test_message.pro.data.network.ApiFactory
-import com.example.test_message.pro.data.network.ApiFactory.apiService
-import com.example.test_message.pro.domain.AuthEntity.Phone
+import com.example.test_message.pro.data.network.AuthDTO.PhoneDTO
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,31 +30,23 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-       binding.butEntry.setOnClickListener {
-           test()
-       }
-        binding.butRegistration.setOnClickListener {
-            val intent = LogInAndRegistrationActivity.newIntent(this)
-            startActivity(intent)
-        }
-
+        launchNextPage()
     }
 
+    private fun launchNextPage() {
+        with(binding) {
+            butEntry.setOnClickListener {
+                val intent = LogInAndRegistrationActivity
+                    .newIntent(this@MainActivity, LogInAndRegistrationActivity.FRAGMENT_AUTH)
+                startActivity(intent)
+            }
+            butRegistration.setOnClickListener {
+                val intent = LogInAndRegistrationActivity
+                    .newIntent(this@MainActivity, LogInAndRegistrationActivity.FRAGMENT_REGISTR)
+                startActivity(intent)
+            }
 
-
-    private fun test() {
-
-
-        CoroutineScope(Dispatchers.IO).launch {
-
-            val phone = Phone("+79996996969")
-
-           val userOne = UserInfo("748543", "Anna", "Tita")
-          //val resp = ApiFactory.apiService.getAutorization(userOne)
-            val auth = ApiFactory.apiService.sendAuthCode(phone)
-          Log.d("testApi", auth.toString() )
         }
-
     }
 
 

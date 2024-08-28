@@ -1,4 +1,4 @@
-package com.example.test_message.pro
+package com.example.test_message.pro.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -30,7 +30,7 @@ class RegistrationFragment : Fragment() {
         private const val KEY_PHONE = "phone"
 
 
-        fun newInstance(phone:String):RegistrationFragment{
+        fun newInstance(phone:String): RegistrationFragment {
             return RegistrationFragment().apply {
                 arguments = Bundle().apply {
                     putString(KEY_PHONE, phone)
