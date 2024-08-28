@@ -41,31 +41,32 @@ class LogInAndRegistrationActivity : AppCompatActivity() {
     }
 
 
-    private fun launchNextPage(screenMode: String, phone:String){
-       val fragment = when(screenMode){
-            FRAGMENT_AUTH ->  AuthCodeFragment.newInstanceAuth()
+    private fun launchNextPage(screenMode: String, phone: String) {
+        val fragment = when (screenMode) {
+            FRAGMENT_AUTH -> AuthCodeFragment.newInstanceAuth()
             FRAGMENT_REGISTR -> RegistrationFragment.newInstance(phone)
-           else -> throw RuntimeException("Unknown screenMode $screenMode")
+            else -> throw RuntimeException("Unknown screenMode $screenMode")
         }
         supportFragmentManager.popBackStack()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main,fragment)
+            .replace(R.id.main, fragment)
             .commit()
     }
 
 
+    companion object {
+
+        const val KEY_FRAGMENT = "key_fragment"
+        const val FRAGMENT_AUTH = "fragment_auth"
+        const val FRAGMENT_REGISTR = "fragment_registr"
+        const val KEY_PHONE = "key_phone"
 
 
-    companion object{
 
-         const val  KEY_FRAGMENT = "key_fragment"
-         const val FRAGMENT_AUTH = "fragment_auth"
-         const val FRAGMENT_REGISTR = "fragment_registr"
-         const val DEFAULT_MODE = "fragment_default"
-
-        fun newIntent(context: Context, fragment:String):Intent{
+        fun newIntent(context: Context, fragment: String, phone: String): Intent {
             val intent = Intent(context, LogInAndRegistrationActivity::class.java)
             intent.putExtra(KEY_FRAGMENT, fragment)
+            intent.putExtra(KEY_PHONE, phone)
             return intent
         }
 
