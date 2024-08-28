@@ -1,12 +1,20 @@
 package com.example.test_message.pro.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.test_message.databinding.ActivityMainBinding
+import com.example.test_message.pro.data.AppRepositoryImpl
+import com.example.test_message.pro.data.network.ApiFactory
+import com.example.test_message.pro.data.network.authDTO.PhoneDTO
+import com.example.test_message.pro.domain.PhoneUserEntity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,8 +32,24 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        launchNextPage()
+        binding.butEntry.setOnClickListener {
+            test()
+        }
+        //launchNextPage()
     }
+
+
+    private val repository = AppRepositoryImpl
+
+    fun test(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val ph = PhoneUserEntity("79996115454")
+            val tut =  repository.sendAuthCodeUseCase(ph)
+
+
+        }
+    }
+
 
 
     private fun launchNextPage() {
@@ -57,6 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
     private fun getFulNumberPhone():String{
         val ccp =  binding.ccp
         val numPhone = binding.etNumberPhone
@@ -64,20 +89,6 @@ class MainActivity : AppCompatActivity() {
         return ccp.fullNumber
 
     }
-
-
-    private fun launchEmpty(){
-        binding.butEntry.setOnClickListener {
-                val intent = LogInAndRegistrationActivity.newIntent2(this)
-                startActivity(intent)
-            }
-        binding.butRegistration.setOnClickListener {
-                val intent = LogInAndRegistrationActivity.newIntent2(this)
-                startActivity(intent)
-            }
-        }
-
-
 
     private fun checkEmpty():Boolean {
         if(binding.etNumberPhone.text.isBlank()){
@@ -88,7 +99,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
 
     companion object {
 

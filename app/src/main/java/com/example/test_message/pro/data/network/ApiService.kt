@@ -3,6 +3,8 @@ package com.example.test_message.pro.data.network
 
 import com.example.test_message.pro.data.network.authDTO.PhoneDTO
 import com.example.test_message.pro.data.network.authDTO.AuthResponseDTO
+import com.example.test_message.pro.data.network.checkDTO.CheckResponseDTO
+import com.example.test_message.pro.data.network.checkDTO.PhoneCodeDTO
 import com.example.test_message.pro.data.network.registrationEntity.ServResponse
 import com.example.test_message.pro.data.network.registrationEntity.UserInfo
 import retrofit2.Response
@@ -19,7 +21,7 @@ interface ApiService {
     suspend fun sendAuthCode(@Body phoneDTO: PhoneDTO): Response<AuthResponseDTO>
 
     @POST("/api/v1/users/check-auth-code/")
-    suspend fun checkAuthCode(@Body phoneDTO: PhoneDTO, code:String): Response<AuthResponseDTO>
+    suspend fun checkAuthCode(@Body phoneCodeDTO: PhoneCodeDTO):Response<CheckResponseDTO>
 
 
 

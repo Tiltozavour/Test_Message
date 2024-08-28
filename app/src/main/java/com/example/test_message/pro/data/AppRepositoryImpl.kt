@@ -1,42 +1,52 @@
 package com.example.test_message.pro.data
 
+
 import android.util.Log
 import com.example.test_message.pro.data.network.ApiFactory
-import com.example.test_message.pro.data.network.authDTO.PhoneDTO
+import com.example.test_message.pro.data.network.checkDTO.CheckResponseDTO
+import com.example.test_message.pro.data.network.checkDTO.PhoneCodeDTO
 import com.example.test_message.pro.data.network.mapper.AppMapper
-import com.example.test_message.pro.data.network.registrationEntity.UserInfo
 import com.example.test_message.pro.domain.AppRepository
 import com.example.test_message.pro.domain.PhoneUserEntity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
-object AppRepositoryImpl:AppRepository{
+object AppRepositoryImpl : AppRepository {
 
     private val apiService = ApiFactory.apiService
     private val mapper = AppMapper()
 
 
-    override suspend fun checkAuthorization(phone: PhoneUserEntity, code: Int): Boolean {
-     val resp =  apiService.sendAuthCode(mapper.mapEntityToDTO(phone)) //отсылаем телефон
-        Log.d("testApi", resp.toString())
-        TODO("Not yet implemented")
-    }
-}
+    override suspend fun sendAuthCodeUseCase(phone: PhoneUserEntity){
+
+        val resp = apiService.sendAuthCode(mapper.mapEntityToDTO(phone)) //отсылаем телефон
+        val code = resp.code() //получаем ответ сервера
 
 
-private fun test() {
+         when (code) {
+            201 -> {
+                checkAuthCodeUseCase(mapper.mapEntityToCodeDTO(phone))
+            }
+            422 -> Log.d("testApi", "неудачный чек телефона")
+            else -> {
 
-
-    CoroutineScope(Dispatchers.IO).launch {
-
-        val phoneDTO = PhoneDTO("+79219999999.")
-
-        val userOne = UserInfo("748543", "Anna", "Tita")
-        //val resp = ApiFactory.apiService.getAutorization(userOne)
-        val auth = ApiFactory.apiService.sendAuthCode(phoneDTO)
-
+            }
+        }
     }
 
+    private suspend fun checkAuthCodeUseCase(phone: PhoneCodeDTO){
+        val resp =  apiService.checkAuthCode(phone)
+        if (resp.isSuccessful){
+            if (resp.body()?.isUserExists == true){
+                Log.d("testApi", "ха ха ура!${resp.body()}" )
+            }
+            else{
+
+            }
+        }
+        else Log.d("testApi", "неудачный чек аунтификации")
+    }
+
+
+
 }
+

@@ -5,9 +5,22 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class CheckResponseDTO(
-    @SerializedName("is_success")
+
+    @SerializedName("refresh_token")
     @Expose
-    val successful: TokenDTO,
+    val refreshToken: String,
+
+    @SerializedName("access_token")
+    @Expose
+    val accessToken: String,
+
+    @SerializedName("user_id")
+    @Expose
+    val userId: Int,
+
+    @SerializedName("is_user_exists")
+    @Expose
+    val isUserExists: Boolean,
 
     @SerializedName("detail")
     @Expose
