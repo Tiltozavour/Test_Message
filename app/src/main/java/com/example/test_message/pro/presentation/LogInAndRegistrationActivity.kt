@@ -25,6 +25,10 @@ class LogInAndRegistrationActivity : AppCompatActivity() {
         ActivityLogInAndRegistrationBinding.inflate(layoutInflater)
     }
 
+    private var screenMode = DEFAULT_SCREEN
+    private var phone = DEFAULT_PHONE
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,15 +39,17 @@ class LogInAndRegistrationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val screenMode = intent.getStringExtra(KEY_FRAGMENT).toString()
-        val phone = "4444444"
+
+
+        screenMode = intent.getStringExtra(KEY_FRAGMENT).toString()
+        phone = intent.getStringExtra(KEY_PHONE).toString()
         launchNextPage(screenMode, phone)
     }
 
 
     private fun launchNextPage(screenMode: String, phone: String) {
         val fragment = when (screenMode) {
-            FRAGMENT_AUTH -> AuthCodeFragment.newInstanceAuth()
+            FRAGMENT_AUTH -> AuthCodeFragment.newInstanceAuth(phone)
             FRAGMENT_REGISTR -> RegistrationFragment.newInstance(phone)
             else -> throw RuntimeException("Unknown screenMode $screenMode")
         }
@@ -60,6 +66,8 @@ class LogInAndRegistrationActivity : AppCompatActivity() {
         const val FRAGMENT_AUTH = "fragment_auth"
         const val FRAGMENT_REGISTR = "fragment_registr"
         const val KEY_PHONE = "key_phone"
+        const val DEFAULT_PHONE = ""
+        const val DEFAULT_SCREEN = ""
 
 
 
@@ -67,6 +75,10 @@ class LogInAndRegistrationActivity : AppCompatActivity() {
             val intent = Intent(context, LogInAndRegistrationActivity::class.java)
             intent.putExtra(KEY_FRAGMENT, fragment)
             intent.putExtra(KEY_PHONE, phone)
+            return intent
+        }
+        fun newIntent2(context: Context): Intent {
+            val intent = Intent(context, LogInAndRegistrationActivity::class.java)
             return intent
         }
 

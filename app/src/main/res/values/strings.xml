@@ -6,4 +6,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_numberUser">номер телефона гони</string>
+    <string name="phone">Phone</string>
+    <string name="sms_code">Введите код из смс:</string>
+    <string name="hint_code">Тут код</string>
 </resources>

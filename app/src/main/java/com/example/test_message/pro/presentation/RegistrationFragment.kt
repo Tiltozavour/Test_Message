@@ -6,23 +6,51 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.test_message.databinding.FragmentRegistrationBinding
+import com.example.test_message.pro.presentation.LogInAndRegistrationActivity.Companion.DEFAULT_PHONE
+import kotlin.jvm.Throws
 
 
 class RegistrationFragment : Fragment() {
 
 
-    private lateinit var  binding:FragmentRegistrationBinding
+    private var _binding : FragmentRegistrationBinding?=null
+    private val binding:FragmentRegistrationBinding
+        get() = _binding?:throw RuntimeException("Attempt to call binding methods outside the view")
+
+
+
+    private var phone = DEFAULT_PHONE
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getParams()
+    }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRegistrationBinding.inflate(inflater, container, false)
+        _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        binding.edPhoneUser.text = phone.toString()
+
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun getParams(){
+        val args = requireArguments()
+       phone = args.getString(KEY_PHONE).toString()
+    }
 
 
     companion object{

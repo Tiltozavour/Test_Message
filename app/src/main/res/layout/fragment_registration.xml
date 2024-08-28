@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -25,10 +26,11 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/edPhoneUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Phone"
+                android:text="@string/phone"
                 android:textSize="30sp" />
 
             <EditText
@@ -44,18 +46,19 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="name"
                 android:gravity="center"
-                android:inputType="textCapWords"
                 android:hint="Имя"
+                android:inputType="textCapWords"
 
                 />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:text="Авторизация"
-                android:padding="14dp"
                 android:layout_margin="14dp"
-                android:background="@drawable/buttons">
+                android:background="@drawable/buttons"
+                android:padding="14dp"
+                android:text="Авторизация">
 
             </Button>
 

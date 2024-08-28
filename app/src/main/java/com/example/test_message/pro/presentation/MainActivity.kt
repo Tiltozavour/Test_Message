@@ -73,6 +73,20 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+    private fun launchEmpty(){
+        binding.butEntry.setOnClickListener {
+                val intent = LogInAndRegistrationActivity.newIntent2(this)
+                startActivity(intent)
+            }
+        binding.butRegistration.setOnClickListener {
+                val intent = LogInAndRegistrationActivity.newIntent2(this)
+                startActivity(intent)
+            }
+        }
+
+
+
     private fun checkEmpty():Boolean {
         if(binding.etNumberPhone.text.isBlank()){
             Toast.makeText(this@MainActivity, textToast, Toast.LENGTH_SHORT).show()

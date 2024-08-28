@@ -5,9 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.test_message.R
 import com.example.test_message.databinding.FragmentAuthCodeBinding
-import com.example.test_message.databinding.FragmentRegistrationBinding
 
 class AuthCodeFragment : Fragment() {
 
@@ -29,12 +27,14 @@ class AuthCodeFragment : Fragment() {
 
         const val KEY_FRAGMENT = "key_fragment"
         const val FRAGMENT_AUTH = "fragment_auth"
+        private const val KEY_PHONE = "phone"
 
 
-        fun newInstanceAuth(): AuthCodeFragment {
+        fun newInstanceAuth(phone:String): AuthCodeFragment {
             return AuthCodeFragment().apply {
                 arguments = Bundle().apply {
                     putString(KEY_FRAGMENT, FRAGMENT_AUTH)
+                    putString(KEY_PHONE, phone)
                 }
             }
         }
