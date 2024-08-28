@@ -8,13 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.test_message.databinding.ActivityMainBinding
-import com.example.test_message.pro.data.AppRepositoryImpl
-import com.example.test_message.pro.data.network.ApiFactory
-import com.example.test_message.pro.data.network.authDTO.PhoneDTO
-import com.example.test_message.pro.domain.PhoneUserEntity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,25 +26,9 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        binding.butEntry.setOnClickListener {
-            test()
-        }
-        //launchNextPage()
+
+        launchNextPage()
     }
-
-
-    private val repository = AppRepositoryImpl
-
-    fun test(){
-        CoroutineScope(Dispatchers.IO).launch {
-            val ph = PhoneUserEntity("79996115454")
-            val tut =  repository.sendAuthCodeUseCase(ph)
-
-
-        }
-    }
-
-
 
     private fun launchNextPage() {
             with(binding) {
@@ -102,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
 
-        private const val textToast = "Мне нужно знать кому звонить по ночам,сенпай. Введи телефон..."
+        private const val textToast = "Мне нужно знать кому звонить по ночам,сенпай. Введи...телефон..."
 
     }
 

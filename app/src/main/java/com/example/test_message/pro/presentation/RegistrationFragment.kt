@@ -36,7 +36,7 @@ class RegistrationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        binding.edPhoneUser.text = phone.toString()
+
 
     }
 

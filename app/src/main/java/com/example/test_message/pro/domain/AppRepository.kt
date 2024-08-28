@@ -4,6 +4,8 @@ interface AppRepository {
 
    suspend fun sendAuthCodeUseCase(phone: PhoneUserEntity)
 
+   suspend fun registrationUseCase(userInfo: UserInfoEntity)
+
 
 
 }
