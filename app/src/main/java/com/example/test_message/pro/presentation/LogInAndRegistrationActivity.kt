@@ -3,19 +3,13 @@ package com.example.test_message.pro.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.test_message.R
 import com.example.test_message.databinding.ActivityLogInAndRegistrationBinding
-import com.example.test_message.pro.data.network.ApiFactory
-import com.example.test_message.pro.data.network.AuthDTO.PhoneDTO
-import com.example.test_message.pro.domain.RegistrationEntity.UserInfo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+
 
 
 class LogInAndRegistrationActivity : AppCompatActivity() {
@@ -45,6 +39,9 @@ class LogInAndRegistrationActivity : AppCompatActivity() {
         phone = intent.getStringExtra(KEY_PHONE).toString()
         launchNextPage(screenMode, phone)
     }
+
+
+
 
 
     private fun launchNextPage(screenMode: String, phone: String) {
@@ -85,20 +82,7 @@ class LogInAndRegistrationActivity : AppCompatActivity() {
     }
 
 
-    private fun test() {
 
-
-        CoroutineScope(Dispatchers.IO).launch {
-
-            val phoneDTO = PhoneDTO("+79219999999.")
-
-            val userOne = UserInfo("748543", "Anna", "Tita")
-            //val resp = ApiFactory.apiService.getAutorization(userOne)
-            val auth = ApiFactory.apiService.sendAuthCode(phoneDTO)
-            Log.d("testApi", auth.toString())
-        }
-
-    }
 
 
 }

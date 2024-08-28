@@ -1,9 +1,9 @@
-package com.example.test_message.pro.domain.AuthEntity
+package com.example.test_message.pro.data.network.authDTO
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class ServerResponseAuth(
+data class AuthResponseDTO(
 
     @SerializedName("is_success")
     @Expose
@@ -11,6 +11,6 @@ data class ServerResponseAuth(
 
     @SerializedName("detail")
     @Expose
-    val error: Detail
+    val error: DetailDTO
 
 )

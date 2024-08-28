@@ -1,20 +1,12 @@
 package com.example.test_message.pro.presentation
 
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Phone
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.test_message.databinding.ActivityMainBinding
-import com.example.test_message.pro.domain.RegistrationEntity.UserInfo
-import com.example.test_message.pro.data.network.ApiFactory
-import com.example.test_message.pro.data.network.AuthDTO.PhoneDTO
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 

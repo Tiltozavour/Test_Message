@@ -1,10 +1,9 @@
-package com.example.test_message.pro.domain.AuthEntity
+package com.example.test_message.pro.data.network.authDTO
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Detail(
-
+data class DetailDTO(
 
     @SerializedName("loc")
     @Expose

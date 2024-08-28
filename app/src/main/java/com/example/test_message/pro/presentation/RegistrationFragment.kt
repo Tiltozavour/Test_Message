@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.test_message.databinding.FragmentRegistrationBinding
 import com.example.test_message.pro.presentation.LogInAndRegistrationActivity.Companion.DEFAULT_PHONE
-import kotlin.jvm.Throws
 
 
 class RegistrationFragment : Fragment() {
