@@ -7,8 +7,6 @@ import com.example.test_message.pro.data.network.checkDTO.CheckResponseDTO
 import com.example.test_message.pro.data.network.checkDTO.PhoneCodeDTO
 import com.example.test_message.pro.data.network.registrDTO.RegistrResponse
 import com.example.test_message.pro.data.network.registrDTO.UserInfoDTO
-import com.example.test_message.pro.data.network.registrationEntity.ServResponse
-import com.example.test_message.pro.data.network.registrationEntity.UserInfo
 import retrofit2.Response
 
 import retrofit2.http.Body

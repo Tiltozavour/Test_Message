@@ -21,6 +21,7 @@ class AppMapper {
             phone = phoneUser.phone,
             code = "133337"
         )
+        TODO()
     }
     fun mapEntityToUserInfoDTO(user:UserInfoEntity):UserInfoDTO{
         return UserInfoDTO(

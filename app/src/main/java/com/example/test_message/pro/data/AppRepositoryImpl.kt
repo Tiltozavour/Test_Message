@@ -15,47 +15,49 @@ object AppRepositoryImpl : AppRepository {
 
     private val apiService = ApiFactory.apiService
     private val mapper = AppMapper()
+    val user = UserInfoEntity("+79219999999", "Anna", "Tita")
 
 
-    override suspend fun sendAuthCodeUseCase(phone: PhoneUserEntity){
+    override suspend fun sendAuthCodeUseCase(phone: PhoneUserEntity) {
         val resp = apiService.sendAuthCode(mapper.mapEntityToDTO(phone)) //отсылаем телефон
         val code = resp.code() //получаем ответ сервера
-
-
-         when (code) {
+        when (code) {
             201 -> {
                 checkAuthCodeUseCase(mapper.mapEntityToCodeDTO(phone))
             }
+
             422 -> Log.d("testApi", "неудачный чек телефона")
             else -> {
-
+                TODO()
             }
         }
     }
 
-    private suspend fun checkAuthCodeUseCase(phone: PhoneCodeDTO){
-        val resp =  apiService.checkAuthCode(phone)
-        if (resp.isSuccessful){
-            if (resp.body()?.isUserExists == true){
-                Log.d("testApi", "ха ха ура!${resp.body()}" )
+    private suspend fun checkAuthCodeUseCase(phone: PhoneCodeDTO) {
+        val resp = apiService.checkAuthCode(phone)
+        if (resp.isSuccessful) {
+            if (resp.body()?.isUserExists == true) {
+                Log.d("testApi", "ха ха ура!${resp.body()}")
                 TODO()
+            } else {
+                registrationUseCase(user)
             }
-            else{
-                  TODO()
-            }
-        }
-        else Log.d("testApi", "неудачный чек аунтификации")
+        } else Log.d("testApi", "неудачный чек аунтификации")
         TODO()
     }
 
 
     override suspend fun registrationUseCase(userInfo: UserInfoEntity) {
-      val resp =  apiService.getRegistration(mapper.mapEntityToUserInfoDTO(userInfo))
-            if (resp.isSuccessful){
-              val token =  resp.body()?.accessToken
-                Log.d("testApi", token.toString())
-                val de = resp.body()?.refreshToken
-            }
+        val resp = apiService.getRegistration(mapper.mapEntityToUserInfoDTO(userInfo))
+        if (resp.isSuccessful) {
+            val token = resp.body()?.accessToken
+            val refresh = resp.body()?.refreshToken
+            Log.d("testApi", "${token.toString()},${refresh.toString()}")
+        }
+        else{
+            val da = resp.code()
+            Log.d("testApi", "Неудачная поптыка ${da}")
+        }
     }
 }
 
