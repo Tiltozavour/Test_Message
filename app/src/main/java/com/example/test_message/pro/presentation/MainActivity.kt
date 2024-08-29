@@ -8,6 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.test_message.databinding.ActivityMainBinding
+import com.example.test_message.pro.data.AppRepositoryImpl
+import com.example.test_message.pro.domain.PhoneUserEntity
+import com.example.test_message.pro.domain.UserInfoEntity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,9 +32,23 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+       /* binding.butEntry.setOnClickListener {
+            test()
+        }*/
 
-        launchNextPage()
+         launchNextPage()
     }
+
+    private val repository = AppRepositoryImpl
+    fun test(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val phone = PhoneUserEntity("79996116565")
+            repository.sendAuthCodeUseCase(phone)
+
+        }
+    }
+
+
 
     private fun launchNextPage() {
             with(binding) {
@@ -70,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkEmpty():Boolean {
         if(binding.etNumberPhone.text.isBlank()){
-            Toast.makeText(this@MainActivity, textToast, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, textToast, Toast.LENGTH_LONG).show()
             return false
         } else {
             return true

@@ -7,16 +7,32 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
+    android:background="@color/secondaryColor"
     android:orientation="vertical"
     tools:context=".pro.presentation.RegistrationFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "@string/GetRegist"
+        android:textSize="18dp"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/DescriptionTint"
+        android:src="@drawable/ohegao_reg" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        app:cardCornerRadius="14dp"
-        app:cardElevation="14dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="@color/bgColor"
+        app:cardElevation="1dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintTop_toBottomOf="parent">
 
@@ -29,38 +45,65 @@
                 android:id="@+id/edPhoneUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:gravity="center"
-                android:text="@string/phone"
-                android:textSize="30sp" />
+                android:textSize="24sp"
+                tools:text="+79996115959" />
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:cardBackgroundColor="@color/secondaryColor"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintTop_toBottomOf="parent">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="username"
                 android:gravity="center"
-                android:hint="Никнейм"
+                android:background="@null"
+                android:layout_margin="8dp"
+                android:hint="@string/Username"
                 android:inputType="textCapWords" />
+            </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+              app:cardCornerRadius="5dp"
+                app:cardBackgroundColor="@color/secondaryColor"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintTop_toBottomOf="parent">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="name"
+                android:layout_margin="8dp"
                 android:gravity="center"
-                android:hint="Имя"
-                android:inputType="textCapWords"
-
-                />
+                android:hint="@string/Name"
+                android:background="@null"
+                android:inputType="textCapWords" />
+            </androidx.cardview.widget.CardView>
 
             <Button
+                android:id="@+id/ButAuthorization"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_margin="14dp"
                 android:background="@drawable/buttons"
                 android:padding="14dp"
-                android:text="Авторизация">
+                android:text="@string/Autorization"/>
 
-            </Button>
 
         </LinearLayout>
 

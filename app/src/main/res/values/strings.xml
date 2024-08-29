@@ -3,10 +3,16 @@
     <string name="registration">Регистрация</string>
     <string name="Entry">Вход</string>
     <string name="hello">Приветики, сенпай...</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_numberUser">номер телефона гони</string>
     <string name="phone">Phone</string>
     <string name="sms_code">Введите код из смс:</string>
     <string name="hint_code">Тут код</string>
+    <string name="registrationText">Регистрация</string>
+    <string name="DescriptionTint">На вас смотрят влюбленные глаза</string>
+    <string name="Username"> Твой шикарный ник </string>
+    <string name="Name">Твое прекрасное имя</string>
+    <string name="Autorization">Авторизация</string>
+    <string name="GetRegist">Давай зарегистрируемся, красавчик?</string>
+    <string name="loginHi">Не в первый раз, м?</string>
 </resources>

@@ -6,7 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.test_message.databinding.FragmentRegistrationBinding
+import com.example.test_message.pro.data.AppRepositoryImpl
+import com.example.test_message.pro.domain.PhoneUserEntity
+import com.example.test_message.pro.domain.UserInfoEntity
 import com.example.test_message.pro.presentation.LogInAndRegistrationActivity.Companion.DEFAULT_PHONE
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class RegistrationFragment : Fragment() {
@@ -50,6 +56,8 @@ class RegistrationFragment : Fragment() {
         val args = requireArguments()
        phone = args.getString(KEY_PHONE).toString()
     }
+
+
 
 
     companion object{

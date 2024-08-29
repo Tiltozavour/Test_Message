@@ -3,4 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="bgColor"> #F0EFED</color>
+    <color name="mainColor"> #65B6B0 </color>
+    <color name="secondaryColor"> #97CFCC </color>
+    <color name="strokeColor"> #949599 </color>
+    <color name="textColor"> #372E27 </color>
+
 </resources>
