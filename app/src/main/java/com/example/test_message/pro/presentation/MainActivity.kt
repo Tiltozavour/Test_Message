@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.test_message.databinding.ActivityMainBinding
 import com.example.test_message.pro.data.AppRepositoryImpl
 import com.example.test_message.pro.domain.PhoneUserEntity
@@ -22,6 +23,10 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    private val viewModel by lazy {
+        ViewModelProvider(this)[AuthRegistViewModel::class.java]
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,59 +37,58 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-       /* binding.butEntry.setOnClickListener {
-            test()
-        }*/
-
          launchNextPage()
-    }
-
-    private val repository = AppRepositoryImpl
-    fun test(){
-        CoroutineScope(Dispatchers.IO).launch {
-            val phone = PhoneUserEntity("79996116565")
-            repository.sendAuthCodeUseCase(phone)
-
-        }
     }
 
 
 
     private fun launchNextPage() {
-            with(binding) {
-                butEntry.setOnClickListener {
-                        if (checkEmpty()){
-                            val intent = LogInAndRegistrationActivity
-                                .newIntent(
-                                    this@MainActivity,
-                                    LogInAndRegistrationActivity.FRAGMENT_AUTH,
-                                    getFulNumberPhone()
-                                )
-                            startActivity(intent)
-                        }
-                }
-                butRegistration.setOnClickListener {
-                    if (checkEmpty()){
-                        val intent = LogInAndRegistrationActivity
-                            .newIntent(
-                                this@MainActivity,
-                                LogInAndRegistrationActivity.FRAGMENT_REGISTR,
-                                getFulNumberPhone()
-                            )
-                        startActivity(intent)
+        with(binding) {
+            butEntry.setOnClickListener {
+                if (checkEmpty()) {
+                    if (initViewModel()) {
+                        intentAuth()
                     }
-
+                   intentRegistration()
                 }
-
+            }
+            butRegistration.setOnClickListener {
+                if (checkEmpty()) {
+                   intentRegistration()
+                }
+            }
         }
+    }
 
+    private fun initViewModel():Boolean{
+      return viewModel.authorization(getFulNumberPhone())
+    }
+
+    private fun intentAuth(){
+        val intent = LogInAndRegistrationActivity
+            .newIntent(
+                this@MainActivity,
+                LogInAndRegistrationActivity.FRAGMENT_AUTH,
+                getFulNumberPhone()
+            )
+        startActivity(intent)
+    }
+
+    private fun intentRegistration(){
+        val intent = LogInAndRegistrationActivity
+            .newIntent(
+                this@MainActivity,
+                LogInAndRegistrationActivity.FRAGMENT_REGISTR,
+                getFulNumberPhone()
+            )
+        startActivity(intent)
     }
 
     private fun getFulNumberPhone():String{
         val ccp =  binding.ccp
         val numPhone = binding.etNumberPhone
         ccp.registerCarrierNumberEditText(numPhone)
-        return ccp.fullNumber
+        return ccp.fullNumberWithPlus
 
     }
 
@@ -106,4 +110,11 @@ class MainActivity : AppCompatActivity() {
 
 }
 
+/*  private val repository = AppRepositoryImpl
+   fun test(){
+       CoroutineScope(Dispatchers.Main).launch {
+           val phone = PhoneUserEntity("+79996116565")
+           repository.sendAuthCodeUseCase(phone)
+       }
+   }*/
 

@@ -4,7 +4,7 @@ class SendAuthCodeUseCase
     (private val repository: AppRepository)
 {
 
-   suspend operator fun invoke(phone: PhoneUserEntity){
+   suspend operator fun invoke(phone: PhoneUserEntity):Boolean {
         return repository.sendAuthCodeUseCase(phone)
     }
 

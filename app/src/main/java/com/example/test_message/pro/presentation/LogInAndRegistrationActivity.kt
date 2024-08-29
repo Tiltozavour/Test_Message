@@ -33,15 +33,10 @@ class LogInAndRegistrationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-
         screenMode = intent.getStringExtra(KEY_FRAGMENT).toString()
         phone = intent.getStringExtra(KEY_PHONE).toString()
         launchNextPage(screenMode, phone)
     }
-
-
-
 
 
     private fun launchNextPage(screenMode: String, phone: String) {
@@ -72,10 +67,6 @@ class LogInAndRegistrationActivity : AppCompatActivity() {
             val intent = Intent(context, LogInAndRegistrationActivity::class.java)
             intent.putExtra(KEY_FRAGMENT, fragment)
             intent.putExtra(KEY_PHONE, phone)
-            return intent
-        }
-        fun newIntent2(context: Context): Intent {
-            val intent = Intent(context, LogInAndRegistrationActivity::class.java)
             return intent
         }
 

@@ -22,8 +22,6 @@ class RegistrationFragment : Fragment() {
     private val binding:FragmentRegistrationBinding
         get() = _binding?:throw RuntimeException("Attempt to call binding methods outside the view")
 
-
-
     private var phone = DEFAULT_PHONE
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,9 +39,8 @@ class RegistrationFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
-
+       getParams()
+        binding.edPhoneUser.text = phone
     }
 
 
