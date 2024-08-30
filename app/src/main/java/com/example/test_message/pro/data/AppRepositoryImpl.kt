@@ -3,11 +3,11 @@ package com.example.test_message.pro.data
 
 import android.util.Log
 import com.example.test_message.pro.data.network.ApiFactory
-import com.example.test_message.pro.data.network.checkDTO.PhoneCodeDTO
 import com.example.test_message.pro.data.network.mapper.AppMapper
 import com.example.test_message.pro.domain.AppRepository
-import com.example.test_message.pro.domain.PhoneUserEntity
-import com.example.test_message.pro.domain.UserInfoEntity
+import com.example.test_message.pro.domain.entity.PhoneCode
+import com.example.test_message.pro.domain.entity.PhoneUserEntity
+import com.example.test_message.pro.domain.entity.UserInfoEntity
 
 
 object AppRepositoryImpl : AppRepository {
@@ -22,9 +22,9 @@ object AppRepositoryImpl : AppRepository {
         var answer = false
         when (code) {
             201 -> {
-                answer = checkAuthCodeUseCase(mapper.mapEntityToCodeDTO(phone))
+                answer = true
+                Log.d("testApi", "удачный чек телефона")
             }
-
             422 -> {
                 answer = false
                 Log.d("testApi", "неудачный чек телефона")
@@ -33,20 +33,23 @@ object AppRepositoryImpl : AppRepository {
         return answer
     }
 
-    private suspend fun checkAuthCodeUseCase(phone: PhoneCodeDTO): Boolean {
-        val resp = apiService.checkAuthCode(phone)
-        var answer = false
+
+    override suspend fun checkAuthCodeUseCase(phoneCode: PhoneCode): Boolean {
+        val resp = apiService.checkAuthCode(mapper.mapEntityToCodeDTO(phoneCode))
+        val answer: Boolean
         if (resp.isSuccessful) {
+            Log.d("testApi", "ха ха ура!${resp.body()!!.accessToken}")
             if (resp.body()?.isUserExists == true) {
                 answer = true
-                Log.d("testApi", "ха ха ура!${resp.body()}")
             } else {
                 answer = false
-                // registrationUseCase(UserInfoEntity(phone.phone,"Tita", "Tutazavr"))
             }
-        } else Log.d("testApi", "неудачный чек аунтификации")
+        }
+        else answer = false
+        Log.d("testApi", "неудачный чек аунтификации")
         return answer
     }
+
 
 
     override suspend fun registrationUseCase(userInfo: UserInfoEntity) {

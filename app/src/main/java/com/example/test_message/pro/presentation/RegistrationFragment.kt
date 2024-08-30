@@ -6,13 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.test_message.databinding.FragmentRegistrationBinding
-import com.example.test_message.pro.data.AppRepositoryImpl
-import com.example.test_message.pro.domain.PhoneUserEntity
-import com.example.test_message.pro.domain.UserInfoEntity
+import com.example.test_message.pro.domain.entity.UserInfoEntity
 import com.example.test_message.pro.presentation.LogInAndRegistrationActivity.Companion.DEFAULT_PHONE
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class RegistrationFragment : Fragment() {
@@ -41,7 +36,16 @@ class RegistrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
        getParams()
         binding.edPhoneUser.text = phone
+        binding.ButAuthorization.setOnClickListener {
+            intentChat()
+        }
     }
+
+    private fun intentChat() {
+        val intent = ChatActivity.newIntent(requireActivity(), UserInfoEntity("32434", "nick", "name"))
+        startActivity(intent)
+    }
+
 
 
     override fun onDestroyView() {
@@ -52,6 +56,14 @@ class RegistrationFragment : Fragment() {
     private fun getParams(){
         val args = requireArguments()
        phone = args.getString(KEY_PHONE).toString()
+
+    }
+
+    private fun getNameUser(){
+        with(binding){
+            etNickname.text
+            etName.text
+        }
     }
 
 

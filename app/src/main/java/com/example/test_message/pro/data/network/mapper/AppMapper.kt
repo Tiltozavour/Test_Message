@@ -1,29 +1,27 @@
 package com.example.test_message.pro.data.network.mapper
 
-import android.icu.text.IDNA.Info
-import android.provider.ContactsContract.CommonDataKinds.Phone
 import com.example.test_message.pro.data.network.authDTO.PhoneDTO
 import com.example.test_message.pro.data.network.checkDTO.PhoneCodeDTO
 import com.example.test_message.pro.data.network.registrDTO.UserInfoDTO
-import com.example.test_message.pro.domain.PhoneUserEntity
-import com.example.test_message.pro.domain.UserInfoEntity
+import com.example.test_message.pro.domain.entity.PhoneCode
+import com.example.test_message.pro.domain.entity.PhoneUserEntity
+import com.example.test_message.pro.domain.entity.UserInfoEntity
 
 class AppMapper {
 
-    fun mapEntityToDTO(phoneUser:PhoneUserEntity):PhoneDTO{
+    fun mapEntityToDTO(phoneUser: PhoneUserEntity):PhoneDTO{
         return PhoneDTO(
             phone = phoneUser.phone,
         )
     }
 
-    fun mapEntityToCodeDTO(phoneUser:PhoneUserEntity):PhoneCodeDTO{
+    fun mapEntityToCodeDTO(phoneCode: PhoneCode):PhoneCodeDTO{
         return PhoneCodeDTO(
-            phone = phoneUser.phone,
-            code = "133337"
+            phone = phoneCode.phone,
+            code = phoneCode.phoneCode
         )
-        TODO()
     }
-    fun mapEntityToUserInfoDTO(user:UserInfoEntity):UserInfoDTO{
+    fun mapEntityToUserInfoDTO(user: UserInfoEntity):UserInfoDTO{
         return UserInfoDTO(
             phone = user.phone,
             userName = user.userName,

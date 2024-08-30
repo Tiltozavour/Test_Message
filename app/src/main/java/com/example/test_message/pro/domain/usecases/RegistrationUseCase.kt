@@ -1,4 +1,7 @@
-package com.example.test_message.pro.domain
+package com.example.test_message.pro.domain.usecases
+
+import com.example.test_message.pro.domain.AppRepository
+import com.example.test_message.pro.domain.entity.UserInfoEntity
 
 class RegistrationUseCase(
     private val repository: AppRepository

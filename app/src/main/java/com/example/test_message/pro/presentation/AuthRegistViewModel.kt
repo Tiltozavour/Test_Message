@@ -1,16 +1,14 @@
 package com.example.test_message.pro.presentation
 
-import android.provider.ContactsContract.CommonDataKinds.Phone
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.test_message.pro.data.AppRepositoryImpl
-import com.example.test_message.pro.domain.ErrorEntity
-import com.example.test_message.pro.domain.PhoneUserEntity
-import com.example.test_message.pro.domain.RegistrationUseCase
-import com.example.test_message.pro.domain.SendAuthCodeUseCase
-import com.example.test_message.pro.domain.UserInfoEntity
+import com.example.test_message.pro.domain.entity.PhoneCode
+import com.example.test_message.pro.domain.entity.PhoneUserEntity
+import com.example.test_message.pro.domain.usecases.RegistrationUseCase
+import com.example.test_message.pro.domain.usecases.SendAuthCodeUseCase
+import com.example.test_message.pro.domain.entity.UserInfoEntity
+import com.example.test_message.pro.domain.usecases.CheckAuthCodeUseCase
 import kotlinx.coroutines.launch
 
 class AuthRegistViewModel : ViewModel() {
@@ -19,14 +17,10 @@ class AuthRegistViewModel : ViewModel() {
     private val repository = AppRepositoryImpl
 
     private val sendAuthCodeUseCase = SendAuthCodeUseCase(repository)
+    private val checkAuthCodeUseCase = CheckAuthCodeUseCase(repository)
     private val registrationUseCase = RegistrationUseCase(repository)
 
-/*
 
-    private val _error = MutableLiveData<ErrorEntity>()
-    val error: LiveData<ErrorEntity>
-        get() = _error
-*/
 
 
     fun authorization(phone: String):Boolean {
@@ -37,6 +31,17 @@ class AuthRegistViewModel : ViewModel() {
         }
         return answer
     }
+
+    fun checkAuthCode(phone: String, code:String):Boolean{
+        val phoneCode = PhoneCode(phone,code)
+        var answer = false
+        viewModelScope.launch {
+            answer  = checkAuthCodeUseCase.invoke(phoneCode)
+        }
+        return answer
+
+    }
+
 
     fun registration(userInfo: UserInfoEntity) {
         viewModelScope.launch {

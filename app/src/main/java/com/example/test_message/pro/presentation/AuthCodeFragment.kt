@@ -8,13 +8,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.test_message.databinding.FragmentAuthCodeBinding
 import com.example.test_message.databinding.FragmentRegistrationBinding
+import com.example.test_message.pro.domain.entity.UserInfoEntity
 
 class AuthCodeFragment : Fragment() {
 
 
-    private var _binding: FragmentAuthCodeBinding?=null
-    private val binding:FragmentAuthCodeBinding
-        get() = _binding?:throw RuntimeException("Attempt to call binding methods outside the view")
+    private var _binding: FragmentAuthCodeBinding? = null
+    private val binding: FragmentAuthCodeBinding
+        get() = _binding
+            ?: throw RuntimeException("Attempt to call binding methods outside the view")
 
     private var phone = DEFAULT_PHONE
 
@@ -32,22 +34,40 @@ class AuthCodeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        getParams()
-        viewModel.authorization(phone)
+
+        phone = getParams()
+
+        if (initViewModel(phone, TEST_CODE))
+        {
+            intentChat()
+        }
+        else
+        {
+            RegistrationFragment.newInstance(phone)
+        }
 
     }
 
-    private fun getParams():String {
+    private fun initViewModel(phone: String, code: String): Boolean {
+        return viewModel.checkAuthCode(phone, code)
+    }
+
+    private fun intentChat() {
+        val intent = ChatActivity.newIntent(requireActivity(), UserInfoEntity("w", "2", "w"))
+        startActivity(intent)
+    }
+
+    private fun getParams(): String {
         val args = requireArguments()
-       args.getString(KEY_PHONE)?.let {
-           phone = it
-       }
+        args.getString(KEY_PHONE)?.let {
+            phone = it
+        }
         return phone
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding =null
+        _binding = null
     }
 
 
@@ -57,6 +77,7 @@ class AuthCodeFragment : Fragment() {
         const val FRAGMENT_AUTH = "fragment_auth"
         private const val KEY_PHONE = "phone"
         private const val DEFAULT_PHONE = ""
+        private const val TEST_CODE = "133337"
 
 
         fun newInstanceAuth(phone: String): AuthCodeFragment {
@@ -72,3 +93,11 @@ class AuthCodeFragment : Fragment() {
     }
 
 }
+
+/*  private val repository = AppRepositoryImpl
+   fun test(){
+       CoroutineScope(Dispatchers.Main).launch {
+           val phone = PhoneUserEntity("+79996116565")
+           repository.sendAuthCodeUseCase(phone)
+       }
+   }*/
