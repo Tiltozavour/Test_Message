@@ -1,4 +1,4 @@
-package com.example.test_message.pro.presentation
+package com.example.test_message.pro.presentation.loginAndRegistration
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.test_message.databinding.FragmentAuthCodeBinding
-import com.example.test_message.databinding.FragmentRegistrationBinding
-import com.example.test_message.pro.domain.entity.UserInfoEntity
+import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
+import com.example.test_message.pro.presentation.ChatActivity
+import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
 
 class AuthCodeFragment : Fragment() {
 
@@ -39,7 +40,7 @@ class AuthCodeFragment : Fragment() {
 
         if (initViewModel(phone, TEST_CODE))
         {
-            intentChat()
+            //intentChat()
         }
         else
         {
@@ -52,10 +53,10 @@ class AuthCodeFragment : Fragment() {
         return viewModel.checkAuthCode(phone, code)
     }
 
-    private fun intentChat() {
-        val intent = ChatActivity.newIntent(requireActivity(), UserInfoEntity("w", "2", "w"))
-        startActivity(intent)
-    }
+    //private fun intentChat() {
+        //val intent = ChatActivity.newIntent(requireActivity(), UserInfoEntity("w", "2", "w"))
+       // startActivity(intent)
+    //}
 
     private fun getParams(): String {
         val args = requireArguments()

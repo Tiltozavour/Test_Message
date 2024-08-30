@@ -1,8 +1,10 @@
 package com.example.test_message.pro.domain
 
-import com.example.test_message.pro.domain.entity.PhoneCode
-import com.example.test_message.pro.domain.entity.PhoneUserEntity
-import com.example.test_message.pro.domain.entity.UserInfoEntity
+import androidx.lifecycle.LiveData
+import com.example.test_message.pro.domain.entity.ChatEntity
+import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
+import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
+import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 
 interface AppRepository {
 
@@ -11,6 +13,8 @@ interface AppRepository {
    suspend fun checkAuthCodeUseCase(phoneCode: PhoneCode):Boolean
 
    suspend fun registrationUseCase(userInfo: UserInfoEntity)
+
+   fun getListChatUseCase(): LiveData<List<ChatEntity>>
 
 
 

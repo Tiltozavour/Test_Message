@@ -3,9 +3,9 @@ package com.example.test_message.pro.data.network.mapper
 import com.example.test_message.pro.data.network.authDTO.PhoneDTO
 import com.example.test_message.pro.data.network.checkDTO.PhoneCodeDTO
 import com.example.test_message.pro.data.network.registrDTO.UserInfoDTO
-import com.example.test_message.pro.domain.entity.PhoneCode
-import com.example.test_message.pro.domain.entity.PhoneUserEntity
-import com.example.test_message.pro.domain.entity.UserInfoEntity
+import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
+import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
+import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 
 class AppMapper {
 

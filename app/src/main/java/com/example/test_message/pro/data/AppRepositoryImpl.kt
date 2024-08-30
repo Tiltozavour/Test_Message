@@ -2,12 +2,15 @@ package com.example.test_message.pro.data
 
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.test_message.pro.data.network.ApiFactory
 import com.example.test_message.pro.data.network.mapper.AppMapper
 import com.example.test_message.pro.domain.AppRepository
-import com.example.test_message.pro.domain.entity.PhoneCode
-import com.example.test_message.pro.domain.entity.PhoneUserEntity
-import com.example.test_message.pro.domain.entity.UserInfoEntity
+import com.example.test_message.pro.domain.entity.ChatEntity
+import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
+import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
+import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 
 
 object AppRepositoryImpl : AppRepository {
@@ -33,7 +36,6 @@ object AppRepositoryImpl : AppRepository {
         return answer
     }
 
-
     override suspend fun checkAuthCodeUseCase(phoneCode: PhoneCode): Boolean {
         val resp = apiService.checkAuthCode(mapper.mapEntityToCodeDTO(phoneCode))
         val answer: Boolean
@@ -50,8 +52,6 @@ object AppRepositoryImpl : AppRepository {
         return answer
     }
 
-
-
     override suspend fun registrationUseCase(userInfo: UserInfoEntity) {
         val resp = apiService.getRegistration(mapper.mapEntityToUserInfoDTO(userInfo))
         if (resp.isSuccessful) {
@@ -63,5 +63,34 @@ object AppRepositoryImpl : AppRepository {
             Log.d("testApi", "Неудачная поптыка регистрации ${da}")
         }
     }
+
+
+    val cardItemLD = MutableLiveData<List<ChatEntity>>()
+    val cards = sortedSetOf<ChatEntity>({ o1, o2 -> o1.id.compareTo(o2.id) })
+
+    private var autoIncrementId = 0
+
+    init {
+        for (i in 0 until 20) {
+            val item = ChatEntity(i, "Name ${i}", "Привет!")
+           addList(item)
+        }
+    }
+
+    override fun getListChatUseCase(): LiveData<List<ChatEntity>> {
+        return cardItemLD
+    }
+
+    private fun addList(chatItem: ChatEntity) {
+        if (chatItem.id == ChatEntity.UNDEFINED_ID) {
+            chatItem.id = autoIncrementId++
+        }
+        cards.add(chatItem)
+        updateList()
+    }
+    private fun updateList() {
+        cardItemLD.value = cards.toList()
+    }
+
 }
 

@@ -9,7 +9,7 @@
     android:gravity="center"
     android:background="@color/secondaryColor"
     android:orientation="vertical"
-    tools:context=".pro.presentation.RegistrationFragment">
+    tools:context=".pro.presentation.loginAndRegistration.RegistrationFragment">
 
     <TextView
         android:layout_width="match_parent"

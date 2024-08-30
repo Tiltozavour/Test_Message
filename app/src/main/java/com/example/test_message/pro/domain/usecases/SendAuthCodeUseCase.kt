@@ -1,7 +1,7 @@
 package com.example.test_message.pro.domain.usecases
 
 import com.example.test_message.pro.domain.AppRepository
-import com.example.test_message.pro.domain.entity.PhoneUserEntity
+import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
 
 class SendAuthCodeUseCase
     (private val repository: AppRepository)

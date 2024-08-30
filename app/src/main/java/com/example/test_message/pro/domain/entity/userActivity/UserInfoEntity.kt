@@ -1,4 +1,4 @@
-package com.example.test_message.pro.domain.entity
+package com.example.test_message.pro.domain.entity.userActivity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

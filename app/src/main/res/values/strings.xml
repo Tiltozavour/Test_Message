@@ -15,4 +15,6 @@
     <string name="Autorization">Авторизация</string>
     <string name="GetRegist">Давай зарегистрируемся, красавчик?</string>
     <string name="loginHi">Не в первый раз, м?</string>
+    <string name="Profile">Профиль</string>
+    <string name="Chat">Чат</string>
 </resources>

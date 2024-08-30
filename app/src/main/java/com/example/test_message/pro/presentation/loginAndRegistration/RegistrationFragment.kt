@@ -1,4 +1,4 @@
-package com.example.test_message.pro.presentation
+package com.example.test_message.pro.presentation.loginAndRegistration
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.test_message.databinding.FragmentRegistrationBinding
-import com.example.test_message.pro.domain.entity.UserInfoEntity
-import com.example.test_message.pro.presentation.LogInAndRegistrationActivity.Companion.DEFAULT_PHONE
+import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
+import com.example.test_message.pro.presentation.ChatActivity
+import com.example.test_message.pro.presentation.loginAndRegistration.LogInAndRegistrationActivity.Companion.DEFAULT_PHONE
 
 
 class RegistrationFragment : Fragment() {
@@ -37,14 +38,15 @@ class RegistrationFragment : Fragment() {
        getParams()
         binding.edPhoneUser.text = phone
         binding.ButAuthorization.setOnClickListener {
-            intentChat()
+           // intentChat()
         }
     }
 
-    private fun intentChat() {
-        val intent = ChatActivity.newIntent(requireActivity(), UserInfoEntity("32434", "nick", "name"))
-        startActivity(intent)
-    }
+   //private fun intentChat() {
+       // val intent =
+           // ChatActivity.newIntent(requireActivity(), UserInfoEntity("32434", "nick", "name"))
+       // startActivity(intent)
+   // }
 
 
 

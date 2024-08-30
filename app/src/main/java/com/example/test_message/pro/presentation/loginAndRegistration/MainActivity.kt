@@ -1,5 +1,6 @@
-package com.example.test_message.pro.presentation
+package com.example.test_message.pro.presentation.loginAndRegistration
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -8,6 +9,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.test_message.databinding.ActivityMainBinding
+import com.example.test_message.pro.presentation.ChatActivity
+import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,9 +33,16 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        launchNextPage()
+        //launchNextPage()
+        binding.ohayo.setOnClickListener {
+            iniChat()
+        }
     }
 
+    private fun iniChat(){
+        val intent = ChatActivity.newIntent(this)
+        startActivity(intent)
+    }
 
     private fun launchNextPage() {
         with(binding) {
@@ -68,22 +78,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun intentAuth() {
-        val intent = LogInAndRegistrationActivity
-            .newIntent(
-                this,
-                LogInAndRegistrationActivity.FRAGMENT_AUTH,
-                getFulNumberPhone()
-            )
+        val intent = LogInAndRegistrationActivity.newIntent(
+            this,
+            LogInAndRegistrationActivity.FRAGMENT_AUTH,
+            getFulNumberPhone()
+        )
         startActivity(intent)
     }
 
     private fun intentRegistration() {
-        val intent = LogInAndRegistrationActivity
-            .newIntent(
-                this,
-                LogInAndRegistrationActivity.FRAGMENT_REGISTR,
-                getFulNumberPhone()
-            )
+        val intent = LogInAndRegistrationActivity.newIntent(
+            this,
+            LogInAndRegistrationActivity.FRAGMENT_REGISTR,
+            getFulNumberPhone()
+        )
         startActivity(intent)
     }
 
