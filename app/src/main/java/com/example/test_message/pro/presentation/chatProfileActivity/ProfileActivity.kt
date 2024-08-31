@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.test_message.R
 import com.example.test_message.databinding.ActivityProfileBinding
+import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -29,10 +30,14 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun buttonNavigation(){
+
+        TODO("убрать заглушку")
+      val userInfo = UserInfoEntity("42342", "Tita", "Tutazavr")
+
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.chatNavButton -> {
-                    val intent = ChatActivity.newIntent(this)
+                    val intent = ChatActivity.newIntent(this,userInfo )
                     startActivity(intent)
                     true
                 }

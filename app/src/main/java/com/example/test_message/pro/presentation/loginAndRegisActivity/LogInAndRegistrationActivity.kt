@@ -3,6 +3,7 @@ package com.example.test_message.pro.presentation.loginAndRegisActivity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -12,7 +13,7 @@ import com.example.test_message.databinding.ActivityLogInAndRegistrationBinding
 
 
 
-class LogInAndRegistrationActivity : AppCompatActivity() {
+class LogInAndRegistrationActivity : AppCompatActivity(),RegistrationFragment.OnShowingToastListener {
 
 
     private val binding by lazy {
@@ -52,6 +53,10 @@ class LogInAndRegistrationActivity : AppCompatActivity() {
     }
 
 
+    override fun onShowingToast() {
+        Toast.makeText(this, messageToast,Toast.LENGTH_LONG).show()
+    }
+
     companion object {
 
         const val KEY_FRAGMENT = "key_fragment"
@@ -60,6 +65,7 @@ class LogInAndRegistrationActivity : AppCompatActivity() {
         const val KEY_PHONE = "key_phone"
         const val DEFAULT_PHONE = ""
         const val DEFAULT_SCREEN = ""
+        private const val messageToast = "Какие-то поля всё ещё пусты...прямо как моё сердечко♥"
 
 
 

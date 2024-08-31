@@ -8,21 +8,17 @@ data class CheckResponseDTO(
 
     @SerializedName("refresh_token")
     @Expose
-    val refreshToken: String,
+    val refreshToken: String?,
 
     @SerializedName("access_token")
     @Expose
-    val accessToken: String,
-
-    @SerializedName("user_id")
-    @Expose
-    val userId: Int,
+    val accessToken: String?,
 
     @SerializedName("is_user_exists")
     @Expose
-    val isUserExists: Boolean,
+    val isUserExists: Boolean?,
 
-    @SerializedName("detail")
+    @SerializedName("user_id")
     @Expose
-    val error: DetailDTO
+    val userId: Int?
 )

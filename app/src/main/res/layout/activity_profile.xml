@@ -114,6 +114,13 @@
             android:layout_marginStart="14dp"
             android:textSize="14sp"
             android:text = "@string/about_me" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:textSize="14sp"
+            tools:text = "Рассказ о себе" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

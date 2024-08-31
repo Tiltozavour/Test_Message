@@ -9,6 +9,8 @@ import com.example.test_message.pro.domain.usecases.RegistrationUseCase
 import com.example.test_message.pro.domain.usecases.SendAuthCodeUseCase
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.domain.usecases.CheckAuthCodeUseCase
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 class AuthRegistViewModel : ViewModel() {
@@ -32,16 +34,14 @@ class AuthRegistViewModel : ViewModel() {
         return answer
     }
 
-    fun checkAuthCode(phone: String, code:String):Boolean{
+     suspend fun checkAuthCode(phone: String, code:String):Boolean{
         val phoneCode = PhoneCode(phone,code)
-        var answer = false
-        viewModelScope.launch {
-            answer  = checkAuthCodeUseCase.invoke(phoneCode)
-        }
+        val answer = viewModelScope.async {
+           checkAuthCodeUseCase.invoke(phoneCode)
+        }.await()
         return answer
 
     }
-
 
     fun registration(userInfo: UserInfoEntity) {
         viewModelScope.launch {

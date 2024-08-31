@@ -32,27 +32,25 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        //launchNextPage()
-        binding.ohayo.setOnClickListener {
+        launchNextPage()
+      /*  binding.ohayo.setOnClickListener {
             iniChat()
-        }
+        }*/
     }
 
-    private fun iniChat(){
+ /*   private fun iniChat(){
         val intent = ChatActivity.newIntent(this)
         startActivity(intent)
-    }
+    } */
 
     private fun launchNextPage() {
         with(binding) {
             butEntry.setOnClickListener {
                 if (!checkBlank()) {
-                    if (initViewModel()){
+                    initViewModel().apply {
                         intentAuth()
                     }
-                    else {
-                        intentRegistration()
-                    }
+                    //intentRegistration()
                 }
             }
             butRegistration.setOnClickListener {

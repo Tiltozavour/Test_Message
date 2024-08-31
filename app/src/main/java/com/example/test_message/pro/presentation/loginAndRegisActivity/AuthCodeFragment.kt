@@ -6,8 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
+import com.example.test_message.R
 import com.example.test_message.databinding.FragmentAuthCodeBinding
+import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
+import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
+import com.example.test_message.pro.presentation.chatProfileActivity.ChatActivity
 import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class AuthCodeFragment : Fragment() {
 
@@ -35,26 +44,41 @@ class AuthCodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         phone = getParams()
+        binding.ButAuthorization.setOnClickListener {
+            var check:Boolean
+            lifecycleScope.launch {
+             check =   initViewModel(phone, TEST_CODE)
+                when (check) {
+                    true ->  intentChat()
+                    false -> intentRegistration()
+                }
+            }
+        }
+    }
 
-        if (initViewModel(phone, TEST_CODE))
-        {
-            //intentChat()
-        }
-        else
-        {
-            RegistrationFragment.newInstance(phone)
-        }
+    private suspend fun initViewModel(phone: String, code: String): Boolean {
+          val answer = lifecycleScope.async {
+              viewModel.checkAuthCode(phone, code)
+          }.await()
+        return answer
+
 
     }
 
-    private fun initViewModel(phone: String, code: String): Boolean {
-        return viewModel.checkAuthCode(phone, code)
+
+    private fun intentRegistration(){
+        val intent = LogInAndRegistrationActivity.newIntent(
+            requireActivity(),
+            LogInAndRegistrationActivity.FRAGMENT_REGISTR,
+            phone
+        )
+        startActivity(intent)
     }
 
-    //private fun intentChat() {
-        //val intent = ChatActivity.newIntent(requireActivity(), UserInfoEntity("w", "2", "w"))
-       // startActivity(intent)
-    //}
+    private fun intentChat() {
+        val intent = ChatActivity.newIntent(requireActivity(), UserInfoEntity("w", "2", "w"))
+        startActivity(intent)
+    }
 
     private fun getParams(): String {
         val args = requireArguments()
@@ -93,10 +117,3 @@ class AuthCodeFragment : Fragment() {
 
 }
 
-/*  private val repository = AppRepositoryImpl
-   fun test(){
-       CoroutineScope(Dispatchers.Main).launch {
-           val phone = PhoneUserEntity("+79996116565")
-           repository.sendAuthCodeUseCase(phone)
-       }
-   }*/

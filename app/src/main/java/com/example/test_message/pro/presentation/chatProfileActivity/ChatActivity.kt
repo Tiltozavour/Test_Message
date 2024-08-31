@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.test_message.R
 import com.example.test_message.databinding.ActivityChatBinding
+import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.presentation.loginAndRegisActivity.LogInAndRegistrationActivity
 import com.example.test_message.pro.presentation.recyclerView.ChatListRVAdapter
 import com.example.test_message.pro.presentation.viewModels.ChatViewModel
@@ -73,9 +74,9 @@ class ChatActivity : AppCompatActivity() {
 
         private const val KEY_INFO_USER = "user_info"
 
-        fun newIntent(context: Context /*userInfo: UserInfoEntity*/): Intent {
+        fun newIntent(context: Context, userInfo: UserInfoEntity): Intent {
             val intent = Intent(context, ChatActivity::class.java)
-            //intent.putExtra(KEY_INFO_USER, userInfo)
+            intent.putExtra(KEY_INFO_USER, userInfo)
             return intent
         }
 
