@@ -8,7 +8,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:background="@color/secondaryColor"
-    tools:context=".pro.presentation.loginAndRegistration.AuthCodeFragment">
+    tools:context=".pro.presentation.loginAndRegisActivity.AuthCodeFragment">
 
     <TextView
         android:layout_width="match_parent"

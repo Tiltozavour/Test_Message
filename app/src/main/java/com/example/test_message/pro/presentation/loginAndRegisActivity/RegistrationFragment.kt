@@ -1,4 +1,4 @@
-package com.example.test_message.pro.presentation.loginAndRegistration
+package com.example.test_message.pro.presentation.loginAndRegisActivity
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.test_message.databinding.FragmentRegistrationBinding
-import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
-import com.example.test_message.pro.presentation.ChatActivity
-import com.example.test_message.pro.presentation.loginAndRegistration.LogInAndRegistrationActivity.Companion.DEFAULT_PHONE
+import com.example.test_message.pro.presentation.loginAndRegisActivity.LogInAndRegistrationActivity.Companion.DEFAULT_PHONE
 
 
 class RegistrationFragment : Fragment() {

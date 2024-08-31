@@ -1,4 +1,4 @@
-package com.example.test_message.pro.presentation.RV
+package com.example.test_message.pro.presentation.recyclerView
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.test_message.pro.domain.entity.ChatEntity

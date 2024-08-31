@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".pro.presentation.loginAndRegistration.MainActivity">
+    tools:context=".pro.presentation.loginAndRegisActivity.MainActivity">
 
     <TextView
         android:layout_width="match_parent"

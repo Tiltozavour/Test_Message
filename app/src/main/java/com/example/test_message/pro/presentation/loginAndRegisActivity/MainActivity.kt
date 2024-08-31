@@ -1,6 +1,5 @@
-package com.example.test_message.pro.presentation.loginAndRegistration
+package com.example.test_message.pro.presentation.loginAndRegisActivity
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -9,7 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.test_message.databinding.ActivityMainBinding
-import com.example.test_message.pro.presentation.ChatActivity
+import com.example.test_message.pro.presentation.chatProfileActivity.ChatActivity
 import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
 
 

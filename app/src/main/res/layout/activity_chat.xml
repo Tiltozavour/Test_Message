@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pro.presentation.ChatActivity">
+    tools:context=".pro.presentation.chatProfileActivity.ChatActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RVList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="783dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/chat_item">
 

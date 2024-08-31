@@ -1,4 +1,4 @@
-package com.example.test_message.pro.presentation.RV
+package com.example.test_message.pro.presentation.recyclerView
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -16,13 +16,16 @@
         android:windowSoftInputMode="adjustResize"
         tools:targetApi="31">
         <activity
-            android:name=".pro.presentation.ChatActivity"
+            android:name=".pro.presentation.chatProfileActivity.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".pro.presentation.loginAndRegistration.LogInAndRegistrationActivity"
+            android:name=".pro.presentation.chatProfileActivity.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".pro.presentation.loginAndRegistration.MainActivity"
+            android:name=".pro.presentation.loginAndRegisActivity.LogInAndRegistrationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pro.presentation.loginAndRegisActivity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

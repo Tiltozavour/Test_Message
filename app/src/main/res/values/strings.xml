@@ -17,4 +17,6 @@
     <string name="loginHi">Не в первый раз, м?</string>
     <string name="Profile">Профиль</string>
     <string name="Chat">Чат</string>
+    <string name="ava">Изображение профиля</string>
+    <string name="about_me">О себе:</string>
 </resources>

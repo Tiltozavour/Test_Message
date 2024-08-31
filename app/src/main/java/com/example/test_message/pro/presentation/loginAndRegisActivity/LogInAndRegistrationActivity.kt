@@ -1,4 +1,4 @@
-package com.example.test_message.pro.presentation.loginAndRegistration
+package com.example.test_message.pro.presentation.loginAndRegisActivity
 
 import android.content.Context
 import android.content.Intent

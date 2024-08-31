@@ -1,4 +1,4 @@
-package com.example.test_message.pro.presentation.loginAndRegistration
+package com.example.test_message.pro.presentation.loginAndRegisActivity
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.test_message.databinding.FragmentAuthCodeBinding
-import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
-import com.example.test_message.pro.presentation.ChatActivity
 import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
 
 class AuthCodeFragment : Fragment() {

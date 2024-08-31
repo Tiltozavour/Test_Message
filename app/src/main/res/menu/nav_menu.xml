@@ -2,9 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/chatNavButton"
         android:icon="@drawable/chat_icon"
         android:title="@string/Chat" />
     <item
+        android:id="@+id/profileNavButton"
         android:icon="@drawable/profile_icon"
         android:title="@string/Profile" />
 
