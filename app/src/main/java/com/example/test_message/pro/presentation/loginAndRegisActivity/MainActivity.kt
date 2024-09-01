@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.test_message.databinding.ActivityMainBinding
+import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.presentation.chatProfileActivity.ChatActivity
 import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
 
@@ -33,15 +34,16 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         launchNextPage()
-      /*  binding.ohayo.setOnClickListener {
-            iniChat()
-        }*/
+        getChatActivity()
     }
 
- /*   private fun iniChat(){
-        val intent = ChatActivity.newIntent(this)
-        startActivity(intent)
-    } */
+    private fun getChatActivity(){
+        binding.ohayo.setOnClickListener {
+            val userInfo = UserInfoEntity("323132", "dasd", "dasda")
+            val intent = ChatActivity.newIntent(this,userInfo)
+            startActivity(intent)
+        }
+    }
 
     private fun launchNextPage() {
         with(binding) {
@@ -50,7 +52,6 @@ class MainActivity : AppCompatActivity() {
                     initViewModel().apply {
                         intentAuth()
                     }
-                    //intentRegistration()
                 }
             }
             butRegistration.setOnClickListener {
@@ -60,7 +61,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun checkBlank():Boolean{
        if (binding.etNumberPhone.text.isBlank()) {

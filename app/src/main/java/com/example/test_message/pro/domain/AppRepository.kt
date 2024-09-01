@@ -2,6 +2,7 @@ package com.example.test_message.pro.domain
 
 import androidx.lifecycle.LiveData
 import com.example.test_message.pro.domain.entity.ChatEntity
+import com.example.test_message.pro.domain.entity.UserProfile
 import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
 import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
@@ -15,6 +16,8 @@ interface AppRepository {
    suspend fun registrationUseCase(userInfo: UserInfoEntity)
 
    fun getListChatUseCase(): LiveData<List<ChatEntity>>
+
+   suspend fun getProfileInfoUseCase():UserProfile
 
 
 

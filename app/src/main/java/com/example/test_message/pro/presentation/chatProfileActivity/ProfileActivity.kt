@@ -7,15 +7,20 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.test_message.R
 import com.example.test_message.databinding.ActivityProfileBinding
+import com.example.test_message.pro.data.AppRepositoryImpl
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
+import kotlinx.coroutines.launch
 
 class ProfileActivity : AppCompatActivity() {
 
     private val binding by lazy {
         ActivityProfileBinding.inflate(layoutInflater)
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,31 +32,38 @@ class ProfileActivity : AppCompatActivity() {
             insets
         }
         buttonNavigation()
+        get()
     }
 
-    private fun buttonNavigation(){
-
-        TODO("убрать заглушку")
-      val userInfo = UserInfoEntity("42342", "Tita", "Tutazavr")
-
+    private fun buttonNavigation() {
+        val userInfo = UserInfoEntity("42342", "Tita", "Tutazavr")
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when(item.itemId){
+            when (item.itemId) {
                 R.id.chatNavButton -> {
-                    val intent = ChatActivity.newIntent(this,userInfo )
+                    val intent = ChatActivity.newIntent(this, userInfo)
                     startActivity(intent)
                     true
                 }
-                R.id.profileNavButton -> { true }
-                else -> { false }
+                else -> {
+                    false
+                }
             }
         }
     }
 
+    private fun get(){
+        binding.get.setOnClickListener {
+            val inpl = AppRepositoryImpl
+            lifecycleScope.launch {
+                inpl.getProfileInfoUseCase()
+            }
 
+        }
+    }
 
     companion object {
 
-        fun newIntent(context: Context):Intent{
+        fun newIntent(context: Context): Intent {
             val intent = Intent(context, ProfileActivity::class.java)
             return intent
         }

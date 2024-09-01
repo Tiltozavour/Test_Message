@@ -8,19 +8,19 @@ data class RegistrResponse(
 
     @SerializedName("refresh_token")
     @Expose
-    val refreshToken: String,
+    val refreshToken: String?,
 
     @SerializedName("access_token")
     @Expose
-    val accessToken: String,
+    val accessToken: String?,
 
     @SerializedName("user_id")
     @Expose
-    val userId: Int,
+    val userId: Int?,
 
-    @SerializedName("detail")
+    /*@SerializedName("detail")
     @Expose
-    val error: DetailDTO
+    val error: DetailDTO?*/
 
 
 )

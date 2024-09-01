@@ -7,8 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import com.example.test_message.pro.data.network.ApiFactory
 import com.example.test_message.pro.data.network.checkDTO.CheckResponseDTO
 import com.example.test_message.pro.data.network.mapper.AppMapper
+import com.example.test_message.pro.data.network.registrDTO.RegistrResponse
 import com.example.test_message.pro.domain.AppRepository
+import com.example.test_message.pro.domain.entity.Avatars
 import com.example.test_message.pro.domain.entity.ChatEntity
+import com.example.test_message.pro.domain.entity.UserProfile
 import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
 import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
@@ -20,7 +23,10 @@ object AppRepositoryImpl : AppRepository {
     private val apiService = ApiFactory.apiService
     private val mapper = AppMapper()
 
+    private var tokenDTO: String = ""
 
+
+    // AuthRegist
     override suspend fun sendAuthCodeUseCase(phone: PhoneUserEntity): Boolean = coroutineScope {
         val resp = apiService.sendAuthCode(mapper.mapEntityToDTO(phone)) //отсылаем телефон
         val code = resp.code()  //получаем ответ сервера
@@ -42,12 +48,15 @@ object AppRepositoryImpl : AppRepository {
 
     override suspend fun checkAuthCodeUseCase(phoneCode: PhoneCode): Boolean {
         val resp = apiService.checkAuthCode(mapper.mapEntityToCodeDTO(phoneCode))
-      return  when (resp.isSuccessful && resp.body()?.isUserExists == true) {
+        return when (resp.isSuccessful && resp.body()?.isUserExists == true) {
             true -> {
                 val token = resp.body()?.accessToken
                 val refresh = resp.body()?.refreshToken
                 val exists = resp.body()?.isUserExists
                 val id = resp.body()?.userId
+                if (token != null) {
+                    tokenDTO = token
+                }
                 CheckResponseDTO(token, refresh, exists, id)
                 Log.d(
                     "testApi",
@@ -56,6 +65,7 @@ object AppRepositoryImpl : AppRepository {
                 )
                 true
             }
+
             false -> {
                 Log.d("testApi", "неудачный чек аунтификации")
                 false
@@ -69,18 +79,21 @@ object AppRepositoryImpl : AppRepository {
             val token = resp.body()?.accessToken
             val refresh = resp.body()?.refreshToken
             val id = resp.body()?.userId
+            RegistrResponse(token, refresh, id)
+            if (token != null) {
+                tokenDTO = token
+            }
             Log.d("testApi", "token ${token.toString()}, refresh ${refresh.toString()}, id =${id} ")
         } else {
-            TODO("обработка  3")
-            val fail = resp.body()?.error?.message
+            val fail = resp.errorBody()
             Log.d("testApi", "Неудачная поптыка регистрации - ${fail}")
+            TODO("обработка  3")
         }
     }
 
-
+    // Chat
     val cardItemLD = MutableLiveData<List<ChatEntity>>()
     val cards = sortedSetOf<ChatEntity>({ o1, o2 -> o1.id.compareTo(o2.id) })
-
     private var autoIncrementId = 0
 
     init {
@@ -105,6 +118,30 @@ object AppRepositoryImpl : AppRepository {
     private fun updateList() {
         cardItemLD.value = cards.toList()
     }
+
+
+    //Profile
+    override suspend fun getProfileInfoUseCase(): UserProfile {
+
+        val token = "Bearer $tokenDTO"
+        val resp = apiService.getInfoUser(token)
+        if (resp.isSuccessful) {
+            resp.raw().body.toString()
+            Log.d(
+                "testApi",
+                " успешно же  ${resp.body()?.profileData?.id} name: ${resp.body()?.profileData?.name}"
+            )
+        } else {
+            val d = resp.headers()
+            Log.d("testApi", "неуспешный запрос профиля ${resp.code()}, ${d}")
+        }
+        return UserProfile(
+            "tita", "tuta", "21", "324", "324", "324", "324",
+            "wda", 123, "324", true, "rwe", "342", 1, Avatars("324", "324", "324")
+        )
+
+    }
+
 
 }
 
