@@ -10,7 +10,7 @@ import com.example.test_message.pro.domain.entity.chatEntity.ChatEntity
 class ChatListRVAdapter :
     ListAdapter<ChatEntity, ChatListRVAdapter.chatViewHolder>(ChatListDiffCallback()) {
 
-        var onItemChatClick:((ChatEntity) -> Unit)? = null
+        var onChatClick:onChatClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): chatViewHolder {
         val binding = ChatItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -22,12 +22,18 @@ class ChatListRVAdapter :
         with(holder.binding) {
             tvNameItem.text = item.name
             tvTextItem.text = item.text
+            root.setOnClickListener {
+                onChatClick?.onChatClick(item)
+            }
         }
-
 
     }
 
-    class chatViewHolder(val binding: ChatItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class chatViewHolder(val binding: ChatItemBinding) : RecyclerView.ViewHolder(binding.root)
+
+
+    interface onChatClickListener{
+        fun onChatClick(chat: ChatEntity)
 
     }
 

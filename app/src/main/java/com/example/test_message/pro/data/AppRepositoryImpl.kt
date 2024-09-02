@@ -18,6 +18,7 @@ import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
 import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import kotlinx.coroutines.coroutineScope
+import kotlin.random.Random
 
 
 object AppRepositoryImpl : AppRepository {
@@ -100,7 +101,7 @@ object AppRepositoryImpl : AppRepository {
 
     init {
         for (i in 0 until 20) {
-            val item = ChatEntity(i, "Name ${i}", "Привет!")
+            val item = ChatEntity(i, "Name ${i}", "НЕТ ТЫ!", Random.nextBoolean() )
             addList(item)
         }
     }

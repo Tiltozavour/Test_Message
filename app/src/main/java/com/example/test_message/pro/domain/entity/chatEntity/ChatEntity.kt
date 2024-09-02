@@ -5,6 +5,7 @@ data class ChatEntity(
     var id:Int = UNDEFINED_ID,
     val name:String,
     val text:String,
+    val userOrAsk:Boolean
 
     ) {
     companion object {

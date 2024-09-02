@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.test_message.R
 import com.example.test_message.databinding.ActivityChatBinding
+import com.example.test_message.pro.domain.entity.chatEntity.ChatEntity
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.presentation.loginAndRegisActivity.LogInAndRegistrationActivity
 import com.example.test_message.pro.presentation.recyclerView.ChatListRVAdapter
@@ -52,6 +53,12 @@ class ChatActivity : AppCompatActivity() {
         val RVList = binding.RVList
         adapterList = ChatListRVAdapter()
         RVList.adapter = adapterList
+        adapterList.onChatClick = object : ChatListRVAdapter.onChatClickListener{
+            override fun onChatClick(chat: ChatEntity) {
+                val intent = DialogChatActivity.newIntent(this@ChatActivity)
+                startActivity(intent)
+            }
+        }
 
     }
 

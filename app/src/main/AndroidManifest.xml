@@ -16,6 +16,13 @@
         android:windowSoftInputMode="adjustResize"
         tools:targetApi="31">
         <activity
+            android:name=".pro.presentation.chatProfileActivity.DialogChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pro.presentation.chatProfileActivity.DialogActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Test_Message" />
+        <activity
             android:name=".pro.presentation.chatProfileActivity.ProfileActivity"
             android:exported="false" />
         <activity

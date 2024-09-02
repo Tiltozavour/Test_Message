@@ -65,6 +65,8 @@ dependencies {
 
     //number
     implementation("com.hbb20:ccp:2.5.0")
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
