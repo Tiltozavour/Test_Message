@@ -59,12 +59,14 @@ class ChatActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.profileNavButton -> {
+
                     val intent = ProfileActivity.newIntent(this)
                     startActivity(intent)
+
                     true
                 }
                 else -> {
-                    false
+                    true
                 }
             }
         }

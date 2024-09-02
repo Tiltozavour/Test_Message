@@ -34,16 +34,8 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         launchNextPage()
-        getChatActivity()
     }
 
-    private fun getChatActivity(){
-        binding.ohayo.setOnClickListener {
-            val userInfo = UserInfoEntity("323132", "dasd", "dasda")
-            val intent = ChatActivity.newIntent(this,userInfo)
-            startActivity(intent)
-        }
-    }
 
     private fun launchNextPage() {
         with(binding) {

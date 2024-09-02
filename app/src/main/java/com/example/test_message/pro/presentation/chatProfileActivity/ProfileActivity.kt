@@ -7,17 +7,24 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.test_message.R
 import com.example.test_message.databinding.ActivityProfileBinding
-import com.example.test_message.pro.data.AppRepositoryImpl
+import com.example.test_message.pro.domain.entity.chatEntity.UserProfile
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
+import com.example.test_message.pro.presentation.viewModels.ChatViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class ProfileActivity : AppCompatActivity() {
 
     private val binding by lazy {
         ActivityProfileBinding.inflate(layoutInflater)
+    }
+
+    private val viewModel by lazy {
+        ViewModelProvider(this)[ChatViewModel::class.java]
     }
 
 
@@ -32,7 +39,7 @@ class ProfileActivity : AppCompatActivity() {
             insets
         }
         buttonNavigation()
-        get()
+        getProfile()
     }
 
     private fun buttonNavigation() {
@@ -42,7 +49,7 @@ class ProfileActivity : AppCompatActivity() {
                 R.id.chatNavButton -> {
                     val intent = ChatActivity.newIntent(this, userInfo)
                     startActivity(intent)
-                    true
+                    false
                 }
                 else -> {
                     false
@@ -51,13 +58,23 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun get(){
-        binding.get.setOnClickListener {
-            val inpl = AppRepositoryImpl
-            lifecycleScope.launch {
-                inpl.getProfileInfoUseCase()
-            }
+    private fun getProfile(){
+        lifecycleScope.launch {
+            viewModel.getProfileInfo()
+            setInfo()
+        }
+    }
 
+    private fun setInfo(){
+        viewModel.userProfile.observe(this){
+            with(binding){
+                tvName.text = it.name
+                tvCity.text = it.city
+                tvNickname.text = it.username
+                tvBirthday.text = it.birthday
+                tvTelephone.text = "+" + it.phone
+                tvAboutMe.text = it.status
+            }
         }
     }
 

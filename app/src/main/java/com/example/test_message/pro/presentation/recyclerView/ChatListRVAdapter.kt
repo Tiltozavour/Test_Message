@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test_message.databinding.ChatItemBinding
-import com.example.test_message.pro.domain.entity.ChatEntity
+import com.example.test_message.pro.domain.entity.chatEntity.ChatEntity
 
 class ChatListRVAdapter :
     ListAdapter<ChatEntity, ChatListRVAdapter.chatViewHolder>(ChatListDiffCallback()) {
+
+        var onItemChatClick:((ChatEntity) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): chatViewHolder {
         val binding = ChatItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -21,6 +23,8 @@ class ChatListRVAdapter :
             tvNameItem.text = item.name
             tvTextItem.text = item.text
         }
+
+
     }
 
     class chatViewHolder(val binding: ChatItemBinding) : RecyclerView.ViewHolder(binding.root) {

@@ -1,4 +1,4 @@
-package com.example.test_message.pro.domain.entity
+package com.example.test_message.pro.domain.entity.chatEntity
 
 data class ChatEntity(
 
@@ -6,7 +6,7 @@ data class ChatEntity(
     val name:String,
     val text:String,
 
-) {
+    ) {
     companion object {
         const val UNDEFINED_ID = -1
     }

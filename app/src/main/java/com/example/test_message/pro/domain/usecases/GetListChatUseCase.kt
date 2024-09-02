@@ -2,7 +2,7 @@ package com.example.test_message.pro.domain.usecases
 
 import androidx.lifecycle.LiveData
 import com.example.test_message.pro.domain.AppRepository
-import com.example.test_message.pro.domain.entity.ChatEntity
+import com.example.test_message.pro.domain.entity.chatEntity.ChatEntity
 
 class GetListChatUseCase(
     private val repository: AppRepository

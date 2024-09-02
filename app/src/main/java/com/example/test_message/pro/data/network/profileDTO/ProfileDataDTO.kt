@@ -47,8 +47,9 @@ data class ProfileDataDTO(
     @SerializedName("completed_task")
     @Expose
     val completedTask: Int,
+
     @SerializedName("avatars")
     @Expose
-    val avatars: AvatarsDTO
+    val avatars: String
 
 )

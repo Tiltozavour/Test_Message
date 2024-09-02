@@ -1,10 +1,12 @@
 package com.example.test_message.pro.presentation.loginAndRegisActivity
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +16,7 @@ import com.example.test_message.databinding.FragmentAuthCodeBinding
 import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.presentation.chatProfileActivity.ChatActivity
+import com.example.test_message.pro.presentation.loginAndRegisActivity.RegistrationFragment.OnShowingToastListener
 import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -25,6 +28,8 @@ class AuthCodeFragment : Fragment() {
     private val binding: FragmentAuthCodeBinding
         get() = _binding
             ?: throw RuntimeException("Attempt to call binding methods outside the view")
+
+    private lateinit var onShowingToast: OnShowingToastListener
 
     private var phone = DEFAULT_PHONE
 
@@ -45,14 +50,17 @@ class AuthCodeFragment : Fragment() {
 
         phone = getParams()
         binding.ButAuthorization.setOnClickListener {
-            var check:Boolean
-            lifecycleScope.launch {
-             check =   initViewModel(phone, TEST_CODE)
-                when (check) {
-                    true ->  intentChat()
-                    false -> intentRegistration()
+            if(checkCode()){
+                var check:Boolean
+                lifecycleScope.launch {
+                    check =   initViewModel(phone, TEST_CODE)
+                    when (check) {
+                        true ->  intentChat()
+                        false -> intentRegistration()
+                    }
                 }
             }
+
         }
     }
 
@@ -61,8 +69,15 @@ class AuthCodeFragment : Fragment() {
               viewModel.checkAuthCode(phone, code)
           }.await()
         return answer
+    }
 
-
+    private fun checkCode():Boolean {
+        val text = binding.etCode.text
+        if (text.isBlank() || text.length < CODE_VALUE) {
+            onShowingToast.onShowingToastAuth()
+            return false
+        }
+            return true
     }
 
 
@@ -93,6 +108,15 @@ class AuthCodeFragment : Fragment() {
         _binding = null
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnShowingToastListener) {
+            onShowingToast = context
+        } else {
+            throw RuntimeException("Activity must implement OnShowingToastListener")
+        }
+    }
+
 
     companion object {
 
@@ -101,6 +125,8 @@ class AuthCodeFragment : Fragment() {
         private const val KEY_PHONE = "phone"
         private const val DEFAULT_PHONE = ""
         private const val TEST_CODE = "133337"
+        private const val CODE_VALUE = 6
+
 
 
         fun newInstanceAuth(phone: String): AuthCodeFragment {
@@ -113,6 +139,9 @@ class AuthCodeFragment : Fragment() {
         }
 
 
+    }
+    interface OnShowingToastListener {
+        fun onShowingToastAuth()
     }
 
 }

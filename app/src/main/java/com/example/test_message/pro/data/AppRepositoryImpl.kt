@@ -7,11 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import com.example.test_message.pro.data.network.ApiFactory
 import com.example.test_message.pro.data.network.checkDTO.CheckResponseDTO
 import com.example.test_message.pro.data.network.mapper.AppMapper
+import com.example.test_message.pro.data.network.profileDTO.AvatarsDTO
+import com.example.test_message.pro.data.network.profileDTO.ProfileDataDTO
 import com.example.test_message.pro.data.network.registrDTO.RegistrResponse
 import com.example.test_message.pro.domain.AppRepository
-import com.example.test_message.pro.domain.entity.Avatars
-import com.example.test_message.pro.domain.entity.ChatEntity
-import com.example.test_message.pro.domain.entity.UserProfile
+import com.example.test_message.pro.domain.entity.chatEntity.Avatars
+import com.example.test_message.pro.domain.entity.chatEntity.ChatEntity
+import com.example.test_message.pro.domain.entity.chatEntity.UserProfile
 import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
 import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
@@ -121,27 +123,40 @@ object AppRepositoryImpl : AppRepository {
 
 
     //Profile
-    override suspend fun getProfileInfoUseCase(): UserProfile {
-
+    override suspend fun getProfileInfoUseCase():UserProfile {
         val token = "Bearer $tokenDTO"
-        val resp = apiService.getInfoUser(token)
-        if (resp.isSuccessful) {
-            resp.raw().body.toString()
+        val responseUserInfo = apiService.getInfoUser(token)
+        if (responseUserInfo.isSuccessful) {
+            val userInfo = responseUserInfo.body()!!.profileData
+            val avatarsDTO = responseUserInfo.body()!!.profileData.avatars
             Log.d(
                 "testApi",
-                " успешно же  ${resp.body()?.profileData?.id} name: ${resp.body()?.profileData?.name}"
+                " успешно же,  id ${responseUserInfo.body()?.profileData?.id} name: ${responseUserInfo.body()?.profileData?.name}"
             )
+            return mapper.profileDTOToEntity(userInfo)
+
         } else {
-            val d = resp.headers()
-            Log.d("testApi", "неуспешный запрос профиля ${resp.code()}, ${d}")
+            Log.d("testApi", "неуспешный запрос профиля ${responseUserInfo.code()}")
         }
+        Log.d("testApi", "Давай по ново все хуня ${responseUserInfo.code()}")
         return UserProfile(
-            "tita", "tuta", "21", "324", "324", "324", "324",
-            "wda", 123, "324", true, "rwe", "342", 1, Avatars("324", "324", "324")
+            null.toString(),
+            null.toString(),
+            null.toString(),
+            null.toString(),
+            null.toString(),
+            null.toString(),
+            null.toString(),
+            null.toString(),
+            0,
+            null.toString(),
+            false,
+            null.toString(),
+            null.toString(),
+            0,
+            null.toString()
         )
-
     }
-
 
 }
 

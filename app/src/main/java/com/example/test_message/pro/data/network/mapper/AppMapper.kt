@@ -5,8 +5,8 @@ import com.example.test_message.pro.data.network.checkDTO.PhoneCodeDTO
 import com.example.test_message.pro.data.network.profileDTO.AvatarsDTO
 import com.example.test_message.pro.data.network.profileDTO.ProfileDataDTO
 import com.example.test_message.pro.data.network.registrDTO.UserInfoDTO
-import com.example.test_message.pro.domain.entity.Avatars
-import com.example.test_message.pro.domain.entity.UserProfile
+import com.example.test_message.pro.domain.entity.chatEntity.Avatars
+import com.example.test_message.pro.domain.entity.chatEntity.UserProfile
 import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
 import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
@@ -34,7 +34,8 @@ class AppMapper {
         )
     }
 
-    fun profileDTOToEntity(profileData: ProfileDataDTO, avatars: AvatarsDTO): UserProfile {
+
+    fun profileDTOToEntity(profileData: ProfileDataDTO): UserProfile {
 
         return UserProfile(
             name = profileData.name,
@@ -51,17 +52,10 @@ class AppMapper {
             created = profileData.created,
             phone = profileData.phone,
             completedTask = profileData.completedTask,
-            avatarDTOToEntity(avatars)
-        )
+            avatars = profileData.avatars
+            )
+    }
 
-    }
-    fun avatarDTOToEntity(avatars:AvatarsDTO): Avatars {
-        return Avatars(
-            avatar = avatars.avatar,
-            bigAvatar = avatars.bigAvatar,
-            miniAvatar = avatars.miniAvatar
-        )
-    }
 
 
 }

@@ -13,7 +13,9 @@ import com.example.test_message.databinding.ActivityLogInAndRegistrationBinding
 
 
 
-class LogInAndRegistrationActivity : AppCompatActivity(),RegistrationFragment.OnShowingToastListener {
+class LogInAndRegistrationActivity : AppCompatActivity()
+    ,RegistrationFragment.OnShowingToastListener
+    , AuthCodeFragment.OnShowingToastListener {
 
 
     private val binding by lazy {
@@ -57,6 +59,10 @@ class LogInAndRegistrationActivity : AppCompatActivity(),RegistrationFragment.On
         Toast.makeText(this, messageToast,Toast.LENGTH_LONG).show()
     }
 
+    override fun onShowingToastAuth() {
+       Toast.makeText(this, toast_text,Toast.LENGTH_LONG).show()
+    }
+
     companion object {
 
         const val KEY_FRAGMENT = "key_fragment"
@@ -66,6 +72,7 @@ class LogInAndRegistrationActivity : AppCompatActivity(),RegistrationFragment.On
         const val DEFAULT_PHONE = ""
         const val DEFAULT_SCREEN = ""
         private const val messageToast = "Какие-то поля всё ещё пусты...прямо как моё сердечко♥"
+        private const val toast_text = "Некорректный код"
 
 
 
