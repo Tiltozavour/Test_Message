@@ -76,22 +76,19 @@ object AppRepositoryImpl : AppRepository {
         }
     }
 
-    override suspend fun registrationUseCase(userInfo: UserInfoEntity) {
+    override suspend fun registrationUseCase(userInfo: UserInfoEntity):Boolean {
         val resp = apiService.getRegistration(mapper.mapEntityToUserInfoDTO(userInfo))
         if (resp.isSuccessful) {
             val token = resp.body()?.accessToken
-            val refresh = resp.body()?.refreshToken
-            val id = resp.body()?.userId
-            RegistrResponse(token, refresh, id)
             if (token != null) {
-                tokenDTO = token
+                return true
             }
-            Log.d("testApi", "token ${token.toString()}, refresh ${refresh.toString()}, id =${id} ")
+            Log.d("testApi", "token ${token.toString()}")
         } else {
-            val fail = resp.errorBody()
-            Log.d("testApi", "Неудачная поптыка регистрации - ${fail}")
-            TODO("обработка  3")
+            val  err = resp.body()?.error?.type
+            Log.d("testApi", "Неудачная поптыка регистрации - ${resp.code()}, message ${err}")
         }
+        return false
     }
 
     // Chat

@@ -14,7 +14,7 @@ interface AppRepository {
 
    suspend fun checkAuthCodeUseCase(phoneCode: PhoneCode):Boolean
 
-   suspend fun registrationUseCase(userInfo: UserInfoEntity)
+   suspend fun registrationUseCase(userInfo: UserInfoEntity):Boolean
 
    fun getListChatUseCase(): LiveData<List<ChatEntity>>
 

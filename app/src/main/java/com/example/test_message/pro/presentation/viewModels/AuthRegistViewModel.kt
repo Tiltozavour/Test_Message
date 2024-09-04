@@ -10,7 +10,6 @@ import com.example.test_message.pro.domain.usecases.SendAuthCodeUseCase
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.domain.usecases.CheckAuthCodeUseCase
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 class AuthRegistViewModel : ViewModel() {
@@ -43,10 +42,11 @@ class AuthRegistViewModel : ViewModel() {
 
     }
 
-    fun registration(userInfo: UserInfoEntity) {
-        viewModelScope.launch {
-            registrationUseCase.invoke(userInfo)
-        }
+    suspend fun registration(userInfo: UserInfoEntity):Boolean {
+        val answer =  viewModelScope.async {
+          registrationUseCase.invoke(userInfo)
+        }.await()
+        return answer
     }
 
 

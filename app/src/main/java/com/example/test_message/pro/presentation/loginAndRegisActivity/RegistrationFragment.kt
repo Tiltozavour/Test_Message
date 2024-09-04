@@ -1,20 +1,20 @@
 package com.example.test_message.pro.presentation.loginAndRegisActivity
 
 import android.content.Context
-import android.content.DialogInterface.OnShowListener
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.test_message.databinding.FragmentRegistrationBinding
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.presentation.chatProfileActivity.ChatActivity
 import com.example.test_message.pro.presentation.loginAndRegisActivity.LogInAndRegistrationActivity.Companion.DEFAULT_PHONE
 import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
-import kotlin.concurrent.thread
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 
 class RegistrationFragment : Fragment() {
@@ -39,7 +39,6 @@ class RegistrationFragment : Fragment() {
         getParams()
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +48,6 @@ class RegistrationFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        getParams()
         binding.edPhoneUser.text = phone
         binding.ButAuthorization.setOnClickListener {
             getAuthorization()
@@ -65,24 +63,38 @@ class RegistrationFragment : Fragment() {
         }
     }
 
-    private fun intentChat(userInfo:UserInfoEntity) {
-    val intent =
-     ChatActivity.newIntent(requireActivity(), userInfo)
-     startActivity(intent)
-     }
-
 
     private fun getAuthorization() {
         with(binding) {
             if (etNickname.text.isBlank() || etName.text.isBlank()) {
                 onShowingToast.onShowingToast()
             } else {
-                val user = getUserInfo()
-                viewModel.registration(user)
-                intentChat(user)
+                var check:Boolean
+                lifecycleScope.launch {
+                    check = initViewModel(getUserInfo())
+                    when(check){
+                        true ->  intentChat(getUserInfo())
+                        false -> onShowingToast.onShowingErrorToast()
+                    }
+                }
+            }
             }
         }
+
+    private suspend fun initViewModel(userInfo: UserInfoEntity): Boolean {
+        val answer = lifecycleScope.async {
+            viewModel.registration(userInfo)
+        }.await()
+        return answer
     }
+
+
+    private fun intentChat(userInfo:UserInfoEntity) {
+        val intent =
+            ChatActivity.newIntent(requireActivity(), userInfo)
+        startActivity(intent)
+    }
+
 
 
     override fun onDestroyView() {
@@ -99,7 +111,7 @@ class RegistrationFragment : Fragment() {
     private fun getUserInfo(): UserInfoEntity {
         val userName = binding.etNickname.text.toString()
         val name = binding.etName.text.toString()
-        return UserInfoEntity(phone, userName, name)
+        return UserInfoEntity(phone,name, userName)
     }
 
 
@@ -121,6 +133,7 @@ class RegistrationFragment : Fragment() {
 
     interface OnShowingToastListener {
         fun onShowingToast()
+        fun onShowingErrorToast()
     }
 
 

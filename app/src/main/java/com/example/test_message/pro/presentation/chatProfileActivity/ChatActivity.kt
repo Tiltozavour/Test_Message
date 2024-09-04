@@ -86,7 +86,7 @@ class ChatActivity : AppCompatActivity() {
 
         fun newIntent(context: Context, userInfo: UserInfoEntity): Intent {
             val intent = Intent(context, ChatActivity::class.java)
-            intent.putExtra(KEY_INFO_USER, userInfo)
+            //intent.putExtra(KEY_INFO_USER, userInfo)
             return intent
         }
 

@@ -54,6 +54,9 @@ class LogInAndRegistrationActivity : AppCompatActivity()
             .commit()
     }
 
+    override fun onShowingErrorToast() {
+        Toast.makeText(this, error_toast_text,Toast.LENGTH_LONG).show()
+    }
 
     override fun onShowingToast() {
         Toast.makeText(this, messageToast,Toast.LENGTH_LONG).show()
@@ -72,7 +75,8 @@ class LogInAndRegistrationActivity : AppCompatActivity()
         const val DEFAULT_PHONE = ""
         const val DEFAULT_SCREEN = ""
         private const val messageToast = "Какие-то поля всё ещё пусты...прямо как моё сердечко♥"
-        private const val toast_text = "Некорректный код"
+        private const val toast_text = "Семпай, это не тот...код"
+        private const val error_toast_text = "Что-то не так с регистрацией"
 
 
 

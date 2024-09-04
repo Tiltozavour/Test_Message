@@ -18,9 +18,9 @@ data class RegistrResponse(
     @Expose
     val userId: Int?,
 
-    /*@SerializedName("detail")
+    @SerializedName("detail")
     @Expose
-    val error: DetailDTO?*/
+    val error: DetailDTO?
 
 
 )
