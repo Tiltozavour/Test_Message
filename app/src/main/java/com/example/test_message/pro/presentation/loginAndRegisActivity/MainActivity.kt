@@ -7,10 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.test_message.databinding.ActivityMainBinding
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.presentation.chatProfileActivity.ChatActivity
 import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,8 +43,10 @@ class MainActivity : AppCompatActivity() {
         with(binding) {
             butEntry.setOnClickListener {
                 if (!checkBlank()) {
-                    initViewModel().apply {
-                        intentAuth()
+                    lifecycleScope.launch {
+                        initViewModel().apply {
+                            intentAuth()
+                        }
                     }
                 }
             }
@@ -62,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         else return false
     }
 
-    private fun initViewModel(): Boolean {
+     private suspend fun initViewModel(): Boolean {
         return viewModel.authorization(getFulNumberPhone())
     }
 

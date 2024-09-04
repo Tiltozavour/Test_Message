@@ -24,12 +24,11 @@ class AuthRegistViewModel : ViewModel() {
 
 
 
-    fun authorization(phone: String):Boolean {
+    suspend fun authorization(phone: String):Boolean {
         val phoneUser = PhoneUserEntity(phone)
-        var answer = false
-        viewModelScope.launch {
-         answer  = sendAuthCodeUseCase.invoke(phoneUser)
-        }
+        val answer = viewModelScope.async {
+            sendAuthCodeUseCase.invoke(phoneUser)
+        }.await()
         return answer
     }
 

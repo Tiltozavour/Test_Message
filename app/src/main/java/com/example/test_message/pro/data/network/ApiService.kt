@@ -5,7 +5,9 @@ import com.example.test_message.pro.data.network.authDTO.PhoneDTO
 import com.example.test_message.pro.data.network.authDTO.AuthResponseDTO
 import com.example.test_message.pro.data.network.checkDTO.CheckResponseDTO
 import com.example.test_message.pro.data.network.checkDTO.PhoneCodeDTO
+import com.example.test_message.pro.data.network.profileDTO.AvatarGetDTO
 import com.example.test_message.pro.data.network.profileDTO.DataUserInfoDTO
+import com.example.test_message.pro.data.network.putInfo.OutputDataDTO
 import com.example.test_message.pro.data.network.registrDTO.RegistrResponse
 import com.example.test_message.pro.data.network.registrDTO.UserInfoDTO
 import retrofit2.Response
@@ -35,6 +37,15 @@ interface ApiService {
     suspend fun getInfoUser(
         @Header("Authorization") token: String,
     ):Response<DataUserInfoDTO>
+
+    //отправка новых данных
+    @POST
+    suspend fun putInfoUser(
+        @Header("Authorization") token: String,
+        @Body outputDataDTO: OutputDataDTO
+    ):Response<AvatarGetDTO>
+
+
 
 }
 

@@ -1,16 +1,16 @@
-package com.example.test_message.pro.domain.entity.chatEntity
+package com.example.test_message.pro.data.network.profileDTO
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Avatars(
+data class AvatarGetDTO(
     @SerializedName("avatar")
     @Expose
-    val avatar: String,
+    val avatar: String?,
     @SerializedName("bigAvatar")
     @Expose
-    val bigAvatar: String,
+    val bigAvatar: String?,
     @SerializedName("miniAvatar")
     @Expose
-    val miniAvatar: String
+    val miniAvatar: String?
 )

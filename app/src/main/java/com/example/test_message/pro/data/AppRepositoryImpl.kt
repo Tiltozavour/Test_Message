@@ -7,13 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import com.example.test_message.pro.data.network.ApiFactory
 import com.example.test_message.pro.data.network.checkDTO.CheckResponseDTO
 import com.example.test_message.pro.data.network.mapper.AppMapper
-import com.example.test_message.pro.data.network.profileDTO.AvatarsDTO
-import com.example.test_message.pro.data.network.profileDTO.ProfileDataDTO
-import com.example.test_message.pro.data.network.registrDTO.RegistrResponse
 import com.example.test_message.pro.domain.AppRepository
-import com.example.test_message.pro.domain.entity.chatEntity.Avatars
 import com.example.test_message.pro.domain.entity.chatEntity.ChatEntity
 import com.example.test_message.pro.domain.entity.chatEntity.UserProfile
+import com.example.test_message.pro.domain.entity.chatEntity.UserPutInfo
 import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
 import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
@@ -27,48 +24,40 @@ object AppRepositoryImpl : AppRepository {
     private val mapper = AppMapper()
 
     private var tokenDTO: String = ""
+    private var refreshToken:String =""
 
 
-    // AuthRegist
-    override suspend fun sendAuthCodeUseCase(phone: PhoneUserEntity): Boolean = coroutineScope {
-        val resp = apiService.sendAuthCode(mapper.mapEntityToDTO(phone)) //отсылаем телефон
-        val code = resp.code()  //получаем ответ сервера
-        var answer = false
-        when (code) {
-            201 -> {
-                answer = true
+    // Проверка телефона
+    override suspend fun sendAuthCodeUseCase(phone: PhoneUserEntity): Boolean  {
+        val resp = apiService.sendAuthCode(mapper.mapEntityToDTO(phone))
+        return when (resp.isSuccessful) {
+            true -> {
                 Log.d("testApi", "удачный чек телефона")
+                true
             }
-
-            422 -> {
-                answer = false
-                TODO("обработка ошибки")
+            false -> {
                 Log.d("testApi", "неудачный чек телефона")
+                false
             }
         }
-        answer
     }
 
     override suspend fun checkAuthCodeUseCase(phoneCode: PhoneCode): Boolean {
         val resp = apiService.checkAuthCode(mapper.mapEntityToCodeDTO(phoneCode))
         return when (resp.isSuccessful && resp.body()?.isUserExists == true) {
             true -> {
-                val token = resp.body()?.accessToken
-                val refresh = resp.body()?.refreshToken
+                tokenDTO = resp.body()?.accessToken ?: throw RuntimeException("Token does`t have exist")
+                refreshToken = resp.body()?.refreshToken ?: throw RuntimeException("RefreshToken does`t have exist")
                 val exists = resp.body()?.isUserExists
                 val id = resp.body()?.userId
-                if (token != null) {
-                    tokenDTO = token
-                }
-                CheckResponseDTO(token, refresh, exists, id)
+                CheckResponseDTO(tokenDTO, refreshToken, exists, id)
                 Log.d(
                     "testApi",
                     "ха ха ура! " +
-                            " токен = ${token}, refresh = ${refresh}, exist = ${exists}, id = ${id}"
+                            " токен = ${tokenDTO}, refresh = ${refreshToken}, exist = ${exists}, id = ${id}"
                 )
                 true
             }
-
             false -> {
                 Log.d("testApi", "неудачный чек аунтификации")
                 false
@@ -137,24 +126,24 @@ object AppRepositoryImpl : AppRepository {
             Log.d("testApi", "неуспешный запрос профиля ${responseUserInfo.code()}")
         }
         Log.d("testApi", "Давай по ново все хуня ${responseUserInfo.code()}")
-        return UserProfile(
-            null.toString(),
-            null.toString(),
-            null.toString(),
-            null.toString(),
-            null.toString(),
-            null.toString(),
-            null.toString(),
-            null.toString(),
-            0,
-            null.toString(),
-            false,
-            null.toString(),
-            null.toString(),
-            0,
-            null.toString()
-        )
+        return throw RuntimeException("Ошибка получение данных")
     }
 
+
+
+    override suspend fun saveInfoUserUseCase(userPutInfo: UserPutInfo) {
+        val token = "Bearer $tokenDTO"
+        val mapInfo = mapper.mapPutEntityToPutDTO(userPutInfo)
+        val responseUserInfo = apiService.putInfoUser(token, mapInfo)
+        if(responseUserInfo.isSuccessful){
+            Log.d(
+                "testApi",
+                " успешно же,  id ${responseUserInfo.body()?.avatar} }"
+            )
+
+        }
+    }
 }
 
+
+        private fun refreshToken(){}

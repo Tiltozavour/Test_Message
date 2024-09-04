@@ -2,11 +2,13 @@ package com.example.test_message.pro.data.network.mapper
 
 import com.example.test_message.pro.data.network.authDTO.PhoneDTO
 import com.example.test_message.pro.data.network.checkDTO.PhoneCodeDTO
-import com.example.test_message.pro.data.network.profileDTO.AvatarsDTO
 import com.example.test_message.pro.data.network.profileDTO.ProfileDataDTO
+import com.example.test_message.pro.data.network.putInfo.AvatarPutDTO
+import com.example.test_message.pro.data.network.putInfo.OutputDataDTO
 import com.example.test_message.pro.data.network.registrDTO.UserInfoDTO
-import com.example.test_message.pro.domain.entity.chatEntity.Avatars
+import com.example.test_message.pro.domain.entity.chatEntity.AvatarGet
 import com.example.test_message.pro.domain.entity.chatEntity.UserProfile
+import com.example.test_message.pro.domain.entity.chatEntity.UserPutInfo
 import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
 import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
@@ -34,17 +36,15 @@ class AppMapper {
         )
     }
 
-
     fun profileDTOToEntity(profileData: ProfileDataDTO): UserProfile {
-
         return UserProfile(
-            name = profileData.name,
+            name = profileData.name ?: "Как твоё имя, воин?",
             username = profileData.username,
-            birthday = profileData.birthday,
-            city = profileData.city,
-            vk = profileData.vk,
-            instagram = profileData.instagram,
-            status = profileData.status,
+            birthday = profileData.birthday ?: "Ваше день рождение",
+            city = profileData.city ?: "Ваш город",
+            vk = profileData.vk ?: "Соц сеть(вк)",
+            instagram = profileData.instagram ?: "Соц сеть(insta)",
+            status = profileData.status ?: "Вот что я хотел бы вам всем тут сказать...",
             avatar = profileData.avatar,
             id = profileData.id,
             last = profileData.last,
@@ -52,9 +52,32 @@ class AppMapper {
             created = profileData.created,
             phone = profileData.phone,
             completedTask = profileData.completedTask,
-            avatars = profileData.avatars
+            avatars = AvatarGet(
+                avatar =  profileData.avatars?.avatar,
+                bigAvatar = profileData.avatars?.bigAvatar,
+                miniAvatar = profileData.avatars?.miniAvatar
+            )
             )
     }
+
+    fun mapPutEntityToPutDTO(userPutInfo: UserPutInfo):OutputDataDTO{
+        return OutputDataDTO(
+            name = userPutInfo.name ?: "",
+            username = userPutInfo.username ?: "",
+            birthday = userPutInfo.birthday ?: "",
+            city = userPutInfo.city ?: "",
+            vk =  userPutInfo.city ?:"",
+            instagram = userPutInfo.instagram?:"",
+            status = userPutInfo.status?:"",
+            avatar = AvatarPutDTO(
+                filename = userPutInfo.avatar?.filename ?:"",
+                base64 = userPutInfo.avatar?.base64 ?:""
+            )
+        )
+
+
+    }
+
 
 
 

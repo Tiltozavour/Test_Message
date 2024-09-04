@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainColor"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".pro.presentation.chatProfileActivity.ProfileActivity">
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ohegaoProf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:contentDescription="@string/DescriptionTint"
         android:src="@drawable/ohegao_profile"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintVertical_bias="0.0">
+
+    </ImageView>
 
     <LinearLayout
+        android:id="@+id/LLInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.177"
+        app:layout_constraintTop_toTopOf="@+id/ohegaoProf"
+        app:layout_constraintVertical_bias="0.172"
         tools:layout_editor_absoluteX="0dp">
 
 
@@ -116,13 +121,16 @@
                 tools:text="Скорпион" />
 
         </LinearLayout>
+
+
         <TextView
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
-            android:textSize="14sp"
-            android:text = "@string/about_me" />
+            android:text="@string/about_me"
+            android:textSize="14sp" />
+
         <TextView
             android:id="@+id/tvAboutMe"
             android:layout_width="match_parent"
@@ -130,26 +138,38 @@
             android:layout_marginStart="14dp"
             android:layout_marginEnd="14dp"
             android:textSize="14sp"
-            tools:text = "Рассказ о себе" />
-
-   <!-- <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-        </com.google.android.material.textfield.TextInputEditText>
-
-
-        </com.google.android.material.textfield.TextInputLayout>-->
+            tools:text="Рассказ о себе" />
 
 
 
 
     </LinearLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/dotSetting"
+        android:layout_width="63dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="40dp"
+        android:src="@drawable/dots"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LLInfo"
+        app:layout_constraintVertical_bias="0.87">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentChatContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.fragment.app.FragmentContainerView>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

@@ -13,9 +13,9 @@ import com.example.test_message.databinding.ActivityLogInAndRegistrationBinding
 
 
 
-class LogInAndRegistrationActivity : AppCompatActivity()
-    ,RegistrationFragment.OnShowingToastListener
-    , AuthCodeFragment.OnShowingToastListener {
+class LogInAndRegistrationActivity : AppCompatActivity(),
+    RegistrationFragment.OnShowingToastListener,
+    AuthCodeFragment.OnShowingToastListener {
 
 
     private val binding by lazy {
