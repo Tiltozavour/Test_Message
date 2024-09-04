@@ -66,10 +66,8 @@ class ChatActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.profileNavButton -> {
-
                     val intent = ProfileActivity.newIntent(this)
                     startActivity(intent)
-
                     true
                 }
                 else -> {
@@ -82,11 +80,8 @@ class ChatActivity : AppCompatActivity() {
 
     companion object {
 
-        private const val KEY_INFO_USER = "user_info"
-
-        fun newIntent(context: Context, userInfo: UserInfoEntity): Intent {
+        fun newIntent(context: Context): Intent {
             val intent = Intent(context, ChatActivity::class.java)
-            //intent.putExtra(KEY_INFO_USER, userInfo)
             return intent
         }
 

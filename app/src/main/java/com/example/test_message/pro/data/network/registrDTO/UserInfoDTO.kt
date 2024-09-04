@@ -7,13 +7,13 @@ data class UserInfoDTO(
 
     @SerializedName("phone")
     @Expose
-    val phone: String,
+    val phone: String?,
 
     @SerializedName("name")
     @Expose
-    val userName:String,
+    val userName:String?,
 
     @SerializedName("username")
     @Expose
-    val name:String
+    val name:String?
 )

@@ -91,7 +91,7 @@ class RegistrationFragment : Fragment() {
 
     private fun intentChat(userInfo:UserInfoEntity) {
         val intent =
-            ChatActivity.newIntent(requireActivity(), userInfo)
+            ChatActivity.newIntent(requireActivity())
         startActivity(intent)
     }
 

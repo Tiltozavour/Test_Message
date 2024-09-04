@@ -90,8 +90,9 @@ class AuthCodeFragment : Fragment() {
         startActivity(intent)
     }
 
+
     private fun intentChat() {
-        val intent = ChatActivity.newIntent(requireActivity(), UserInfoEntity("w", "2", "w"))
+        val intent = ChatActivity.newIntent(requireActivity())
         startActivity(intent)
     }
 

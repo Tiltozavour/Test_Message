@@ -8,15 +8,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class UserInfoEntity (
 
-    @SerializedName("phone")
-    @Expose
-    val phone:String,
-
-    @SerializedName("name")
-    @Expose
-    val name:String,
-
-    @SerializedName("username")
-    @Expose
-    val userName:String
+    val phone:String?,
+    val name:String?,
+    val userName:String?
 ):Parcelable

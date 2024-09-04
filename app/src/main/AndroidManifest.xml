@@ -20,6 +20,7 @@
             android:exported="false" />
         <activity
             android:name=".pro.presentation.chatProfileActivity.ProfileActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".pro.presentation.chatProfileActivity.ChatActivity"

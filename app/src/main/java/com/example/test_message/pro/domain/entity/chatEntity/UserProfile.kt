@@ -1,7 +1,11 @@
 package com.example.test_message.pro.domain.entity.chatEntity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class UserProfile(
-    val name: String?,
+    var name: String?,
     val username: String?,
     val birthday: String?,
     val city: String?,
@@ -16,4 +20,4 @@ data class UserProfile(
     val phone: String?,
     val completedTask: Int?,
     val avatars: String?
-)
+):Parcelable
