@@ -1,6 +1,6 @@
 package com.example.test_message.pro.data.network.registrDTO
 
-import com.example.test_message.pro.data.network.authDTO.DetailDTO
+import com.example.test_message.pro.data.network.authDTO.DetailArrayDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -20,7 +20,7 @@ data class RegistrResponse(
 
     @SerializedName("detail")
     @Expose
-    val error: DetailDTO?
+    val error: DetailArrayDTO?
 
 
 )

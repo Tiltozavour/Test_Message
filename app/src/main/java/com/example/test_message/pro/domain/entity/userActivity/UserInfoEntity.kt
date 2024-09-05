@@ -7,8 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserInfoEntity (
-
-    val phone:String?,
-    val name:String?,
-    val userName:String?
+    val phone:String,
+    val name:String,
+    val userName:String
 ):Parcelable

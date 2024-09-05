@@ -56,7 +56,10 @@ class AuthCodeFragment : Fragment() {
                     check =   initViewModel(phone, TEST_CODE)
                     when (check) {
                         true ->  intentChat()
-                        false -> intentRegistration()
+                        false -> {
+                            onShowingToast.onShowToastRegist()
+                            intentRegistration()
+                        }
                     }
                 }
             }
@@ -143,6 +146,7 @@ class AuthCodeFragment : Fragment() {
     }
     interface OnShowingToastListener {
         fun onShowingToastAuth()
+        fun onShowToastRegist()
     }
 
 }

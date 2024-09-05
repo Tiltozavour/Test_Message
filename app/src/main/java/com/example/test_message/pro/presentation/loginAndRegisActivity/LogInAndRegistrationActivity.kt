@@ -12,7 +12,6 @@ import com.example.test_message.R
 import com.example.test_message.databinding.ActivityLogInAndRegistrationBinding
 
 
-
 class LogInAndRegistrationActivity : AppCompatActivity(),
     RegistrationFragment.OnShowingToastListener,
     AuthCodeFragment.OnShowingToastListener {
@@ -57,13 +56,14 @@ class LogInAndRegistrationActivity : AppCompatActivity(),
     override fun onShowingErrorToast() {
         Toast.makeText(this, error_toast_text,Toast.LENGTH_LONG).show()
     }
-
     override fun onShowingToast() {
         Toast.makeText(this, messageToast,Toast.LENGTH_LONG).show()
     }
-
     override fun onShowingToastAuth() {
        Toast.makeText(this, toast_text,Toast.LENGTH_LONG).show()
+    }
+    override fun onShowToastRegist() {
+        Toast.makeText(this@LogInAndRegistrationActivity, failAuthToast, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
@@ -77,6 +77,7 @@ class LogInAndRegistrationActivity : AppCompatActivity(),
         private const val messageToast = "Какие-то поля всё ещё пусты...прямо как моё сердечко♥"
         private const val toast_text = "Семпай, это не тот...код"
         private const val error_toast_text = "Что-то не так с регистрацией"
+        private const val failAuthToast = "Кажется ты тут совсем недавно, они-чан"
 
 
 
@@ -88,8 +89,6 @@ class LogInAndRegistrationActivity : AppCompatActivity(),
         }
 
     }
-
-
 
 
 

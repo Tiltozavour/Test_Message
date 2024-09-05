@@ -31,8 +31,9 @@ class AppMapper {
     fun mapEntityToUserInfoDTO(user: UserInfoEntity): UserInfoDTO {
         return UserInfoDTO(
             phone = user.phone,
-            userName = user.userName,
-            name = user.name
+            name = user.name,
+            userName = user.userName
+
         )
     }
 
