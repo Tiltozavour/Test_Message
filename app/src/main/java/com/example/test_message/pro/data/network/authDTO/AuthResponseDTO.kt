@@ -11,6 +11,6 @@ data class AuthResponseDTO(
 
     @SerializedName("detail")
     @Expose
-    val error: DetailArrayDTO
+    val error: DetailArrayDTO?
 
 )

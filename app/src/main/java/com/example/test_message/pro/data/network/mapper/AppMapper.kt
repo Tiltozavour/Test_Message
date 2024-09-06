@@ -37,17 +37,17 @@ class AppMapper {
         )
     }
 
-    fun profileDTOToEntity(profileData: ProfileDataDTO): UserProfile {
+    fun profileDTOToEntity(profileData: ProfileDataDTO?): UserProfile {
         return UserProfile(
-            name = profileData.name ?: "Как твоё имя, воин?",
-            username = profileData.username,
-            birthday = profileData.birthday ?: "Ваше день рождение",
-            city = profileData.city ?: "Ваш город",
-            vk = profileData.vk ?: "Соц сеть(вк)",
-            instagram = profileData.instagram ?: "Соц сеть(insta)",
-            status = profileData.status ?: "Вот что я хотел бы вам всем тут сказать...",
-            avatar = profileData.avatar,
-            id = profileData.id,
+            name = profileData?.name ?: "Как твоё имя, воин?",
+            username = profileData?.username,
+            birthday = profileData?.birthday ?: "Ваше день рождение",
+            city = profileData?.city ?: "Ваш город",
+            vk = profileData?.vk ?: "Соц сеть(вк)",
+            instagram = profileData?.instagram ?: "Соц сеть(insta)",
+            status = profileData?.status ?: "Вот что я хотел бы вам всем тут сказать...",
+            avatar = profileData?.avatar,
+            id = profileData!!.id,
             last = profileData.last,
             online = profileData.online,
             created = profileData.created,

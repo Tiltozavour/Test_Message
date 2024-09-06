@@ -10,10 +10,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.test_message.databinding.FragmentSettingsBinding
+import com.example.test_message.pro.domain.entity.chatEntity.AvatarPut
 import com.example.test_message.pro.domain.entity.chatEntity.UserProfile
+import com.example.test_message.pro.domain.entity.chatEntity.UserPutInfo
 import com.example.test_message.pro.presentation.loginAndRegisActivity.AuthCodeFragment
 import com.example.test_message.pro.presentation.loginAndRegisActivity.RegistrationFragment.OnShowingToastListener
 import com.example.test_message.pro.presentation.viewModels.ChatViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 
@@ -53,18 +56,36 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         binding.butSave.setOnClickListener {
-            visibility.visibility() //возвращает кнопку на место в активити
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            lifecycleScope.launch {
+                if (saveInfo()){
+                    visibility.visibility()
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+            }
 
         }
-
-
     }
 
-    private fun saveInfo(){
-        viewModel.userInput.observe(viewLifecycleOwner){
 
-        }
+    private suspend fun saveInfo():Boolean{
+        val user = UserPutInfo(
+            name = binding.etName.text.toString(),
+            username = binding.etUserName.text.toString(),
+            birthday = binding.etBirthday.text.toString(),
+            city = binding.etCity.text.toString(),
+            vk = binding.etVk.text.toString(),
+            instagram = binding.etInsta.text.toString(),
+            status = binding.etStatus.text.toString(),
+            avatar = AvatarPut(
+                filename = "userAvatar01",
+                base64 = "заглушка"
+            )
+        )
+        val answer = lifecycleScope.async {
+             viewModel.inputInfo(user)
+         }.await()
+
+        return answer
     }
 
     private fun initViewModel() {

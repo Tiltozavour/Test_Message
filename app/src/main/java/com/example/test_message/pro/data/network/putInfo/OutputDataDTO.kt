@@ -17,6 +17,7 @@ data class OutputDataDTO(
     @SerializedName("birthday")
     @Expose
     val birthday: String,
+
     @SerializedName("city")
     @Expose
     val city: String,

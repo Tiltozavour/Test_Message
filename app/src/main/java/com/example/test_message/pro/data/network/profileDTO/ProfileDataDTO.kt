@@ -7,46 +7,46 @@ data class ProfileDataDTO(
 
     @SerializedName("name")
     @Expose
-    val name: String?,
+    val name: String,
     @SerializedName("username")
     @Expose
     val username: String,
     @SerializedName("birthday")
     @Expose
-    val birthday: String?,
+    val birthday: String,
     @SerializedName("city")
     @Expose
-    val city: String?,
+    val city: String,
     @SerializedName("vk")
     @Expose
-    val vk: String?,
+    val vk: String,
     @SerializedName("instagram")
     @Expose
-    val instagram: String?,
+    val instagram: String,
     @SerializedName("status")
     @Expose
-    val status: String?,
+    val status: String,
     @SerializedName("avatar")
     @Expose
-    val avatar: String?,
+    val avatar: String,
     @SerializedName("id")
     @Expose
     val id: Int,
     @SerializedName("last")
     @Expose
-    val last: String?,
+    val last: String,
     @SerializedName("online")
     @Expose
-    val online: Boolean?,
+    val online: Boolean,
     @SerializedName("created")
     @Expose
-    val created: String?,
+    val created: String,
     @SerializedName("phone")
     @Expose
     val phone: String,
     @SerializedName("completed_task")
     @Expose
-    val completedTask: Int?,
+    val completedTask: Int,
 
     @SerializedName("avatars")
     @Expose

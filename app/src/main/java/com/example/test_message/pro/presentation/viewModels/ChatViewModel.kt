@@ -27,12 +27,6 @@ class ChatViewModel:ViewModel() {
     val userProfile:LiveData<UserProfile>
         get() = _userProfile
 
-    private val _userInput = MutableLiveData<UserPutInfo>()
-    val userInput:LiveData<UserPutInfo>
-        get() = _userInput
-
-
-
 
     val chatList = getChatList.invoke()
 
@@ -42,10 +36,12 @@ class ChatViewModel:ViewModel() {
         }.await()
     }
 
-    suspend fun inputInfo(userPutInfo: UserPutInfo){
-        viewModelScope.async {
+    suspend fun inputInfo(userPutInfo: UserPutInfo):Boolean{
+
+       val answer = viewModelScope.async {
            inputInfo.invoke(userPutInfo)
         }.await()
+        return answer
     }
 
 

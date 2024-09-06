@@ -20,7 +20,7 @@ interface AppRepository {
 
    suspend fun getProfileInfoUseCase():UserProfile
 
-   suspend fun saveInfoUserUseCase(userPutInfo: UserPutInfo)
+   suspend fun saveInfoUserUseCase(userPutInfo: UserPutInfo):Boolean
 
 
 

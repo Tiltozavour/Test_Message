@@ -4,6 +4,7 @@ package com.example.test_message.pro.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.test_message.pro.data.AppRepositoryImpl.tokenDTO
 import com.example.test_message.pro.data.network.ApiFactory
 import com.example.test_message.pro.data.network.checkDTO.CheckResponseDTO
 import com.example.test_message.pro.data.network.mapper.AppMapper
@@ -68,40 +69,40 @@ object AppRepositoryImpl : AppRepository {
     override suspend fun registrationUseCase(userInfo: UserInfoEntity): Boolean {
         val map = mapper.mapEntityToUserInfoDTO(userInfo)
         val resp = apiService.getRegistration(map)
-        Log.d("testApi", " попытка регистрации -> ${resp.code()} ")
+        Log.d("testApi", "Попытка регистрации -> ${resp.code()} ")
         val detail = resp.body()?.error?.detail
         if (detail != null) {
-            for( i in detail){
+            for (i in detail) {
                 Log.d("testApi", "ошибка -> ${i.loc} , msg ${i.message}, type ${i.type}")
             }
-
         }
 
-        return when (resp.isSuccessful) {
-            true -> {
-                tokenDTO = resp.body()?.accessToken
-                    ?: throw RuntimeException("Token does`t have exist")
-                refreshToken = resp.body()?.refreshToken
-                    ?: throw RuntimeException("RefreshToken does`t have exist")
-                Log.d("testApi", "Успешная регистрация  id ${resp.body()?.userId}")
-                true
-            }
-            false -> {
-                val exist = checkAuthCodeUseCase(PhoneCode(userInfo.phone, "133337"))
-                if (exist) {
-                    Log.d(
-                        "testApi",
-                        "Неудачная поптыка регистрации - ${resp.code()}, пользователь уже существует"
-                    )
-                } else {
-                    Log.d(
-                        "testApi",
-                        "Неудачная поптыка регистрации - ${resp.code()}, что-то другое"
-                    )
+            return when (resp.isSuccessful) {
+                true -> {
+                    tokenDTO = resp.body()?.accessToken
+                        ?: throw RuntimeException("Token does`t have exist")
+                    refreshToken = resp.body()?.refreshToken
+                        ?: throw RuntimeException("RefreshToken does`t have exist")
+                    Log.d("testApi", "Успешная регистрация  id ${resp.body()?.userId}")
+                    true
                 }
-                false
+
+                false -> {
+                    val exist = checkAuthCodeUseCase(PhoneCode(userInfo.phone, "133337"))
+                    if (exist) {
+                        Log.d(
+                            "testApi",
+                            "Неудачная поптыка регистрации - ${resp.code()}, пользователь уже существует"
+                        )
+                    } else {
+                        Log.d(
+                            "testApi",
+                            "Неудачная поптыка регистрации - ${resp.code()}, что-то другое"
+                        )
+                    }
+                    false
+                }
             }
-        }
     }
 
 
@@ -139,8 +140,7 @@ override suspend fun getProfileInfoUseCase(): UserProfile {
     val token = "Bearer $tokenDTO"
     val responseUserInfo = apiService.getInfoUser(token)
     if (responseUserInfo.isSuccessful) {
-        val userInfo = responseUserInfo.body()!!.profileData
-        val avatarsDTO = responseUserInfo.body()!!.profileData.avatars
+        val userInfo = responseUserInfo.body()?.profileData
         Log.d(
             "testApi",
             " успешно же,  id ${responseUserInfo.body()?.profileData?.id} name: ${responseUserInfo.body()?.profileData?.name}"
@@ -155,19 +155,37 @@ override suspend fun getProfileInfoUseCase(): UserProfile {
 }
 
 
-override suspend fun saveInfoUserUseCase(userPutInfo: UserPutInfo) {
+
+override suspend fun saveInfoUserUseCase(userPutInfo: UserPutInfo):Boolean {
     val token = "Bearer $tokenDTO"
     val mapInfo = mapper.mapPutEntityToPutDTO(userPutInfo)
     val responseUserInfo = apiService.putInfoUser(token, mapInfo)
-    if (responseUserInfo.isSuccessful) {
-        Log.d(
-            "testApi",
-            " успешно же,  id ${responseUserInfo.body()?.avatar} }"
-        )
+    return when (responseUserInfo.isSuccessful) {
+        true -> {
+            Log.d(
+                "testApi",
+                " успешное сохрание новых данных пользователя,  id ${responseUserInfo.body()?.avatar} "
+            )
+            true
+        }
+
+        false ->  {
+            false
+        }
 
     }
 }
+    private suspend fun refreshToken() {
+        val token = "Bearer $tokenDTO"
+        val responseRefreshToken = apiService.refreshToken(token, refreshToken)
+        if(responseRefreshToken.isSuccessful){
+            refreshToken = responseRefreshToken.body()?.refreshToken ?: throw RuntimeException("L'ennemi tapi dans mon esprit fête mes défaites sans répit, me défie")
+            tokenDTO = responseRefreshToken.body()?.accessToken ?: throw RuntimeException("Token does`t have exist")
+        }
+    }
+
+
 }
 
 
-private fun refreshToken() {}
+
