@@ -10,6 +10,7 @@ import com.example.test_message.pro.data.network.profileDTO.DataUserInfoDTO
 import com.example.test_message.pro.data.network.putInfo.OutputDataDTO
 import com.example.test_message.pro.data.network.registrDTO.RegistrResponse
 import com.example.test_message.pro.data.network.registrDTO.UserInfoDTO
+import com.example.test_message.pro.di.ApplicationScope
 import retrofit2.Response
 
 import retrofit2.http.Body
@@ -17,6 +18,8 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 
+
+@ApplicationScope
 interface ApiService {
 
 

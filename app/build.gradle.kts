@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.devtools.ksp")
+
+    id ("kotlin-kapt")
     id("kotlin-parcelize")
 }
 
@@ -43,31 +44,32 @@ android {
 
 dependencies {
 
+    //Base
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-
-    //retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation (libs.retrofit2.converter.gson)
     //OKKHTTP
-    implementation ("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation (libs.okhttp)
+    //Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+    //Lifecycle
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    //Number
+    implementation(libs.ccp)
+    //DI
+    implementation (libs.dagger)
+    kapt (libs.dagger.compiler)
 
-    //coroutines
-
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-
-    //lifecycle
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
-
-    //number
-    implementation("com.hbb20:ccp:2.5.0")
+    //annotationProcessor (libs.dagger.compiler)
+    //Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-
+    //Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

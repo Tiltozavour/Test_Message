@@ -12,7 +12,11 @@ import com.example.test_message.databinding.ActivityMainBinding
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.presentation.chatProfileActivity.ChatActivity
 import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
+import com.example.test_message.pro.presentation.viewModels.MessageApp
+import com.example.test_message.pro.presentation.viewModels.ViewModelFactory
+import dagger.internal.DaggerCollections
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,12 +25,18 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[AuthRegistViewModel::class.java]
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel: AuthRegistViewModel
+
+
+    private val component by lazy {
+        (application as MessageApp).component
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
@@ -36,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         launchNextPage()
+        viewModel = ViewModelProvider(this, viewModelFactory)[AuthRegistViewModel::class.java]
     }
 
 
@@ -51,22 +62,21 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             butRegistration.setOnClickListener {
-            if (!checkBlank()) {
-                intentRegistration()
+                if (!checkBlank()) {
+                    intentRegistration()
                 }
             }
         }
     }
 
-    private fun checkBlank():Boolean{
-       if (binding.etNumberPhone.text.isBlank()) {
-           Toast.makeText(this, textToast, Toast.LENGTH_LONG).show()
-           return true
-       }
-        else return false
+    private fun checkBlank(): Boolean {
+        if (binding.etNumberPhone.text.isBlank()) {
+            Toast.makeText(this, textToast, Toast.LENGTH_LONG).show()
+            return true
+        } else return false
     }
 
-     private suspend fun initViewModel(): Boolean {
+    private suspend fun initViewModel(): Boolean {
         return viewModel.authorization(getFulNumberPhone())
     }
 

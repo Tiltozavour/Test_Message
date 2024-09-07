@@ -2,7 +2,6 @@ package com.example.test_message.pro.presentation.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.test_message.pro.data.AppRepositoryImpl
 import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
 import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
 import com.example.test_message.pro.domain.usecases.RegistrationUseCase
@@ -10,19 +9,13 @@ import com.example.test_message.pro.domain.usecases.SendAuthCodeUseCase
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.domain.usecases.CheckAuthCodeUseCase
 import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AuthRegistViewModel : ViewModel() {
-
-
-    private val repository = AppRepositoryImpl
-
-    private val sendAuthCodeUseCase = SendAuthCodeUseCase(repository)
-    private val checkAuthCodeUseCase = CheckAuthCodeUseCase(repository)
-    private val registrationUseCase = RegistrationUseCase(repository)
-
-
-
+class AuthRegistViewModel @Inject constructor(
+    private val sendAuthCodeUseCase:SendAuthCodeUseCase,
+    private val checkAuthCodeUseCase :CheckAuthCodeUseCase,
+    private val registrationUseCase: RegistrationUseCase
+) : ViewModel() {
 
     suspend fun authorization(phone: String):Boolean {
         val phoneUser = PhoneUserEntity(phone)

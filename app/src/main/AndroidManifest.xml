@@ -10,6 +10,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/icon_avatar"
         android:label="@string/app_name"
+        android:name=".pro.presentation.viewModels.MessageApp"
         android:roundIcon="@drawable/icon_avatar"
         android:supportsRtl="true"
         android:theme="@style/Theme.Test_Message"

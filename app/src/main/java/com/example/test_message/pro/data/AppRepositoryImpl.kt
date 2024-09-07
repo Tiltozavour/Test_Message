@@ -14,14 +14,16 @@ import com.example.test_message.pro.domain.entity.chatEntity.UserPutInfo
 import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
 import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
-import kotlinx.coroutines.coroutineScope
+import javax.inject.Inject
 import kotlin.random.Random
 
 
-object AppRepositoryImpl : AppRepository {
+class AppRepositoryImpl @Inject constructor(
+    private val mapper:AppMapper,
 
-    private val apiService = ApiFactory.apiService
-    private val mapper = AppMapper()
+) : AppRepository {
+
+    private val apiService = ApiFactory
 
     private var tokenDTO: String = ""
     private var refreshToken:String =""
@@ -29,7 +31,7 @@ object AppRepositoryImpl : AppRepository {
 
     // Проверка телефона
     override suspend fun sendAuthCodeUseCase(phone: PhoneUserEntity): Boolean  {
-        val resp = apiService.sendAuthCode(mapper.mapEntityToDTO(phone))
+        val resp = apiService.apiService.sendAuthCode(mapper.mapEntityToDTO(phone))
         return when (resp.isSuccessful) {
             true -> {
                 Log.d("testApi", "удачный чек телефона")
@@ -43,7 +45,7 @@ object AppRepositoryImpl : AppRepository {
     }
 
     override suspend fun checkAuthCodeUseCase(phoneCode: PhoneCode): Boolean {
-        val resp = apiService.checkAuthCode(mapper.mapEntityToCodeDTO(phoneCode))
+        val resp = apiService.apiService.checkAuthCode(mapper.mapEntityToCodeDTO(phoneCode))
         return when (resp.isSuccessful && resp.body()?.isUserExists == true) {
             true -> {
                 tokenDTO = resp.body()?.accessToken ?: throw RuntimeException("Token does`t have exist")
@@ -66,7 +68,7 @@ object AppRepositoryImpl : AppRepository {
     }
 
     override suspend fun registrationUseCase(userInfo: UserInfoEntity):Boolean {
-        val resp = apiService.getRegistration(mapper.mapEntityToUserInfoDTO(userInfo))
+        val resp = apiService.apiService.getRegistration(mapper.mapEntityToUserInfoDTO(userInfo))
         if (resp.isSuccessful) {
             val token = resp.body()?.accessToken
             if (token != null) {
@@ -112,7 +114,7 @@ object AppRepositoryImpl : AppRepository {
     //Profile
     override suspend fun getProfileInfoUseCase():UserProfile {
         val token = "Bearer $tokenDTO"
-        val responseUserInfo = apiService.getInfoUser(token)
+        val responseUserInfo = apiService.apiService.getInfoUser(token)
         if (responseUserInfo.isSuccessful) {
             val userInfo = responseUserInfo.body()!!.profileData
             val avatarsDTO = responseUserInfo.body()!!.profileData.avatars
@@ -134,7 +136,7 @@ object AppRepositoryImpl : AppRepository {
     override suspend fun saveInfoUserUseCase(userPutInfo: UserPutInfo) {
         val token = "Bearer $tokenDTO"
         val mapInfo = mapper.mapPutEntityToPutDTO(userPutInfo)
-        val responseUserInfo = apiService.putInfoUser(token, mapInfo)
+        val responseUserInfo = apiService.apiService.putInfoUser(token, mapInfo)
         if(responseUserInfo.isSuccessful){
             Log.d(
                 "testApi",

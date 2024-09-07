@@ -12,8 +12,9 @@ import com.example.test_message.pro.domain.entity.chatEntity.UserPutInfo
 import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
 import com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
+import javax.inject.Inject
 
-class AppMapper {
+class AppMapper @Inject constructor() {
 
     fun mapEntityToDTO(phoneUser: PhoneUserEntity): PhoneDTO {
         return PhoneDTO(
