@@ -15,7 +15,11 @@ import com.example.test_message.pro.domain.entity.chatEntity.ChatEntity
 import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.presentation.loginAndRegisActivity.LogInAndRegistrationActivity
 import com.example.test_message.pro.presentation.recyclerView.ChatListRVAdapter
+import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
 import com.example.test_message.pro.presentation.viewModels.ChatViewModel
+import com.example.test_message.pro.presentation.viewModels.MessageApp
+import com.example.test_message.pro.presentation.viewModels.ViewModelFactory
+import javax.inject.Inject
 
 class ChatActivity : AppCompatActivity() {
 
@@ -23,14 +27,21 @@ class ChatActivity : AppCompatActivity() {
         ActivityChatBinding.inflate(layoutInflater)
     }
 
-    private val viewModel by lazy{
-        ViewModelProvider(this)[ChatViewModel::class.java]
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel:ChatViewModel
+
+
+    private val component by lazy {
+        (application as MessageApp).component
     }
+
 
     private lateinit var adapterList: ChatListRVAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
@@ -39,6 +50,7 @@ class ChatActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        viewModel = ViewModelProvider(this,viewModelFactory)[ChatViewModel::class.java]
         viewModelInnit()
         setupRV()
         buttonNavigation()

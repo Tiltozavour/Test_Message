@@ -6,20 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
-import com.example.test_message.R
 import com.example.test_message.databinding.FragmentAuthCodeBinding
-import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
-import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.presentation.chatProfileActivity.ChatActivity
-import com.example.test_message.pro.presentation.loginAndRegisActivity.RegistrationFragment.OnShowingToastListener
 import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
+import com.example.test_message.pro.presentation.viewModels.MessageApp
+import com.example.test_message.pro.presentation.viewModels.ViewModelFactory
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class AuthCodeFragment : Fragment() {
 
@@ -33,10 +29,14 @@ class AuthCodeFragment : Fragment() {
 
     private var phone = DEFAULT_PHONE
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[AuthRegistViewModel::class.java]
-    }
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel:AuthRegistViewModel
 
+
+    private val component by lazy {
+        (requireActivity().application as MessageApp).component
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +47,7 @@ class AuthCodeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        viewModel = ViewModelProvider(this, viewModelFactory)[AuthRegistViewModel::class.java]
         phone = getParams()
         binding.ButAuthorization.setOnClickListener {
             if(checkCode()){
@@ -110,6 +110,7 @@ class AuthCodeFragment : Fragment() {
     }
 
     override fun onAttach(context: Context) {
+        component.inject(this)
         super.onAttach(context)
         if (context is OnShowingToastListener) {
             onShowingToast = context

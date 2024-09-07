@@ -13,8 +13,11 @@ import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.presentation.chatProfileActivity.ChatActivity
 import com.example.test_message.pro.presentation.loginAndRegisActivity.LogInAndRegistrationActivity.Companion.DEFAULT_PHONE
 import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
+import com.example.test_message.pro.presentation.viewModels.MessageApp
+import com.example.test_message.pro.presentation.viewModels.ViewModelFactory
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 class RegistrationFragment : Fragment() {
@@ -29,9 +32,15 @@ class RegistrationFragment : Fragment() {
 
     private lateinit var onShowingToast: OnShowingToastListener
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[AuthRegistViewModel::class.java]
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel:AuthRegistViewModel
+
+
+    private val component by lazy {
+        (requireActivity().application as MessageApp).component
     }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +57,7 @@ class RegistrationFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel = ViewModelProvider(this, viewModelFactory)[AuthRegistViewModel::class.java]
         binding.edPhoneUser.text = phone
         binding.ButAuthorization.setOnClickListener {
             getAuthorization()
@@ -55,6 +65,7 @@ class RegistrationFragment : Fragment() {
     }
 
     override fun onAttach(context: Context) {
+        component.inject(this)
         super.onAttach(context)
         if (context is OnShowingToastListener) {
             onShowingToast = context

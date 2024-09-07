@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        launchNextPage()
         viewModel = ViewModelProvider(this, viewModelFactory)[AuthRegistViewModel::class.java]
+        launchNextPage()
     }
 
 

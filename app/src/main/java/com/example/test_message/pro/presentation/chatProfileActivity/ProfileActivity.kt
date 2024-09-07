@@ -17,7 +17,10 @@ import com.example.test_message.R
 import com.example.test_message.databinding.ActivityProfileBinding
 import com.example.test_message.pro.domain.entity.chatEntity.UserProfile
 import com.example.test_message.pro.presentation.viewModels.ChatViewModel
+import com.example.test_message.pro.presentation.viewModels.MessageApp
+import com.example.test_message.pro.presentation.viewModels.ViewModelFactory
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class ProfileActivity : AppCompatActivity(),
  SettingsFragment.getVisibility{
@@ -26,13 +29,18 @@ class ProfileActivity : AppCompatActivity(),
         ActivityProfileBinding.inflate(layoutInflater)
     }
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel:ChatViewModel
 
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[ChatViewModel::class.java]
+    private val component by lazy {
+        (application as MessageApp).component
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
@@ -41,6 +49,7 @@ class ProfileActivity : AppCompatActivity(),
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        viewModel = ViewModelProvider(this, viewModelFactory)[ChatViewModel::class.java]
         getProfileFromBase()
         buttonNavigation()
         binding.dotSetting.setOnClickListener {

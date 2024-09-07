@@ -13,6 +13,9 @@ import com.example.test_message.databinding.ActivityDialogChatBinding
 import com.example.test_message.pro.presentation.recyclerView.ChatAdapter
 import com.example.test_message.pro.presentation.recyclerView.ChatListRVAdapter
 import com.example.test_message.pro.presentation.viewModels.ChatViewModel
+import com.example.test_message.pro.presentation.viewModels.MessageApp
+import com.example.test_message.pro.presentation.viewModels.ViewModelFactory
+import javax.inject.Inject
 
 class DialogChatActivity : AppCompatActivity() {
 
@@ -20,8 +23,13 @@ class DialogChatActivity : AppCompatActivity() {
         ActivityDialogChatBinding.inflate(layoutInflater)
     }
 
-    private val viewModel by lazy{
-        ViewModelProvider(this)[ChatViewModel::class.java]
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel:ChatViewModel
+
+
+    private val component by lazy {
+        (application as MessageApp).component
     }
 
 
@@ -29,6 +37,7 @@ class DialogChatActivity : AppCompatActivity() {
     private lateinit var adapterList: ChatAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
@@ -37,6 +46,7 @@ class DialogChatActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        viewModel = ViewModelProvider(this,viewModelFactory)[ChatViewModel::class.java]
         viewModelInnit()
         setupRV()
     }

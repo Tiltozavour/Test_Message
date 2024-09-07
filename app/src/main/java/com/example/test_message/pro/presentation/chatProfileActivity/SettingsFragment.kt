@@ -1,7 +1,6 @@
 package com.example.test_message.pro.presentation.chatProfileActivity
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,11 +9,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.test_message.databinding.FragmentSettingsBinding
-import com.example.test_message.pro.domain.entity.chatEntity.UserProfile
-import com.example.test_message.pro.presentation.loginAndRegisActivity.AuthCodeFragment
-import com.example.test_message.pro.presentation.loginAndRegisActivity.RegistrationFragment.OnShowingToastListener
 import com.example.test_message.pro.presentation.viewModels.ChatViewModel
+import com.example.test_message.pro.presentation.viewModels.MessageApp
+import com.example.test_message.pro.presentation.viewModels.ViewModelFactory
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 class SettingsFragment : Fragment() {
@@ -27,11 +26,18 @@ class SettingsFragment : Fragment() {
 
     private lateinit var visibility:getVisibility
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[ChatViewModel::class.java]
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel: ChatViewModel
+
+
+    private val component by lazy {
+        (requireActivity().application as MessageApp).component
     }
 
+
     override fun onAttach(context: Context) {
+        component.inject(this)
         super.onAttach(context)
         if (context is SettingsFragment.getVisibility) {
             visibility = context
@@ -51,6 +57,7 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this,viewModelFactory)[ChatViewModel::class.java]
         initViewModel()
         binding.butSave.setOnClickListener {
             visibility.visibility() //возвращает кнопку на место в активити
