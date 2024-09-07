@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:autofillHints="phone"
                     android:gravity="center"
-                    android:maxLength="17"
+                    android:maxLength="13"
                     android:textColor="@color/textColor"
                     android:hint="@string/hint_numberUser"
                     android:inputType="phone"

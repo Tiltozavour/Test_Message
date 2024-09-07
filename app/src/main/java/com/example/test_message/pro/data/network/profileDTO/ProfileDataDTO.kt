@@ -3,8 +3,8 @@ package com.example.test_message.pro.data.network.profileDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class ProfileDataDTO(
-
+data class ProfileDataDTO
+    (
     @SerializedName("name")
     @Expose
     val name: String?,
@@ -47,9 +47,9 @@ data class ProfileDataDTO(
     @SerializedName("completed_task")
     @Expose
     val completedTask: Int?,
-
     @SerializedName("avatars")
     @Expose
     val avatars: AvatarGetDTO?
 
 )
+

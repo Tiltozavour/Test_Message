@@ -1,4 +1,4 @@
-package com.example.test_message.pro.data.network.mapper
+package com.example.test_message.pro.data.mapper
 
 import com.example.test_message.pro.data.network.authDTO.PhoneDTO
 import com.example.test_message.pro.data.network.checkDTO.PhoneCodeDTO
@@ -7,6 +7,7 @@ import com.example.test_message.pro.data.network.putInfo.AvatarPutDTO
 import com.example.test_message.pro.data.network.putInfo.OutputDataDTO
 import com.example.test_message.pro.data.network.registrDTO.UserInfoDTO
 import com.example.test_message.pro.domain.entity.chatEntity.AvatarGet
+import com.example.test_message.pro.domain.entity.chatEntity.AvatarPut
 import com.example.test_message.pro.domain.entity.chatEntity.UserProfile
 import com.example.test_message.pro.domain.entity.chatEntity.UserPutInfo
 import com.example.test_message.pro.domain.entity.userActivity.PhoneCode
@@ -32,8 +33,8 @@ class AppMapper @Inject constructor() {
     fun mapEntityToUserInfoDTO(user: UserInfoEntity): UserInfoDTO {
         return UserInfoDTO(
             phone = user.phone,
-            userName = user.userName,
-            name = user.name
+            name = user.name,
+            username = user.username
         )
     }
 
@@ -63,7 +64,7 @@ class AppMapper @Inject constructor() {
 
     fun mapPutEntityToPutDTO(userPutInfo: UserPutInfo):OutputDataDTO{
         return OutputDataDTO(
-            name = userPutInfo.name ?: "",
+            name = userPutInfo.name,
             username = userPutInfo.username ?: "",
             birthday = userPutInfo.birthday ?: "",
             city = userPutInfo.city ?: "",
@@ -71,8 +72,8 @@ class AppMapper @Inject constructor() {
             instagram = userPutInfo.instagram?:"",
             status = userPutInfo.status?:"",
             avatar = AvatarPutDTO(
-                filename = userPutInfo.avatar?.filename ?:"",
-                base64 = userPutInfo.avatar?.base64 ?:""
+                filename = userPutInfo.avatar?.filename,
+                base64 = userPutInfo.avatar?.base64
             )
         )
 

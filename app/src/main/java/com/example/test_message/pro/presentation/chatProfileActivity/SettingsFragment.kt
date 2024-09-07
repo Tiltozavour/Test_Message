@@ -9,9 +9,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.test_message.databinding.FragmentSettingsBinding
+import com.example.test_message.pro.domain.entity.chatEntity.AvatarPut
+import com.example.test_message.pro.domain.entity.chatEntity.UserPutInfo
+import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
 import com.example.test_message.pro.presentation.viewModels.ChatViewModel
 import com.example.test_message.pro.presentation.viewModels.MessageApp
 import com.example.test_message.pro.presentation.viewModels.ViewModelFactory
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -60,6 +64,9 @@ class SettingsFragment : Fragment() {
         viewModel = ViewModelProvider(this,viewModelFactory)[ChatViewModel::class.java]
         initViewModel()
         binding.butSave.setOnClickListener {
+            lifecycleScope.launch {
+                saveInfo(getNewInfo())
+            }
             visibility.visibility() //возвращает кнопку на место в активити
             requireActivity().onBackPressedDispatcher.onBackPressed()
 
@@ -67,11 +74,33 @@ class SettingsFragment : Fragment() {
 
 
     }
+    private suspend fun saveInfo(userInfo:UserPutInfo){
+       lifecycleScope.async {
+           viewModel.inputInfo(userInfo)
+       }.await()
+    }
 
-    private fun saveInfo(){
-        viewModel.userInput.observe(viewLifecycleOwner){
-
+    private fun getNewInfo():UserPutInfo{
+        var name = ""
+        var userName = ""
+        viewModel.userProfile.observe(viewLifecycleOwner){
+            name = it.name
+            userName = it.username
         }
+
+        return UserPutInfo(
+            name = name,
+            username = (binding.etUserName.text?:userName).toString(),
+            birthday = (binding.etBirthday.text?:"10.12.2077").toString(),
+            city = (binding.etCity.text?:"Eben`grad").toString(),
+            vk = (binding.etVk.text?:"https://vk.com/id0").toString(),
+            instagram = (binding.etVk.text?:"Not instaDiva").toString(),
+            status = (binding.etStatus.text?:"Мы там дело на пол дела не да").toString(),
+            avatar = AvatarPut(
+                filename = "imageЗаглушка",
+                base64 = "бейзЗаглушка"
+            )
+        )
     }
 
     private fun initViewModel() {

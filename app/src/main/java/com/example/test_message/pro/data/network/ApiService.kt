@@ -8,6 +8,7 @@ import com.example.test_message.pro.data.network.checkDTO.PhoneCodeDTO
 import com.example.test_message.pro.data.network.profileDTO.AvatarGetDTO
 import com.example.test_message.pro.data.network.profileDTO.DataUserInfoDTO
 import com.example.test_message.pro.data.network.putInfo.OutputDataDTO
+import com.example.test_message.pro.data.network.putInfo.ResponsePutDTO
 import com.example.test_message.pro.data.network.registrDTO.RegistrResponse
 import com.example.test_message.pro.data.network.registrDTO.UserInfoDTO
 import com.example.test_message.pro.di.ApplicationScope
@@ -33,7 +34,7 @@ interface ApiService {
 
     //регистрация нового пользователя
     @POST("/api/v1/users/register/")
-    suspend fun getRegistration(@Body userInfoDTO: UserInfoDTO): Response<RegistrResponse>
+    suspend fun getRegistration(@Body userInfo: UserInfoDTO): Response<RegistrResponse>
 
     //получение информации о пользователе
     @GET("/api/v1/users/me/")
@@ -46,7 +47,7 @@ interface ApiService {
     suspend fun putInfoUser(
         @Header("Authorization") token: String,
         @Body outputDataDTO: OutputDataDTO
-    ):Response<AvatarGetDTO>
+    ):Response<ResponsePutDTO>
 
 
 

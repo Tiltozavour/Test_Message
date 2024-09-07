@@ -7,5 +7,5 @@ data class DataUserInfoDTO (
 
     @SerializedName("profile_data")
     @Expose
-    val profileData:ProfileDataDTO
+    var profileData: ProfileDataDTO? = null
 )

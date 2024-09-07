@@ -18,7 +18,7 @@ interface AppRepository {
 
    fun getListChatUseCase(): LiveData<List<ChatEntity>>
 
-   suspend fun getProfileInfoUseCase():UserProfile
+   suspend fun getProfileInfoUseCase():UserProfile?
 
    suspend fun saveInfoUserUseCase(userPutInfo: UserPutInfo)
 

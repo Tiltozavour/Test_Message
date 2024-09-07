@@ -4,13 +4,19 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class AvatarGetDTO(
+
     @SerializedName("avatar")
     @Expose
-    val avatar: String?,
+    var avatar: String? = null,
+
     @SerializedName("bigAvatar")
     @Expose
-    val bigAvatar: String?,
+    var bigAvatar: String? = null,
+
     @SerializedName("miniAvatar")
     @Expose
-    val miniAvatar: String?
+    var miniAvatar: String? = null
+
 )
+
+

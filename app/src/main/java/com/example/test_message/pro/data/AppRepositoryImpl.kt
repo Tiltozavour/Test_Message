@@ -6,7 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.test_message.pro.data.network.ApiFactory
 import com.example.test_message.pro.data.network.checkDTO.CheckResponseDTO
-import com.example.test_message.pro.data.network.mapper.AppMapper
+import com.example.test_message.pro.data.mapper.AppMapper
+import com.example.test_message.pro.data.network.profileDTO.ProfileDataDTO
 import com.example.test_message.pro.domain.AppRepository
 import com.example.test_message.pro.domain.entity.chatEntity.ChatEntity
 import com.example.test_message.pro.domain.entity.chatEntity.UserProfile
@@ -19,9 +20,9 @@ import kotlin.random.Random
 
 
 class AppRepositoryImpl @Inject constructor(
-    private val mapper:AppMapper,
+    private val mapper: AppMapper,
 
-) : AppRepository {
+    ) : AppRepository {
 
     private val apiService = ApiFactory
 
@@ -52,7 +53,6 @@ class AppRepositoryImpl @Inject constructor(
                 refreshToken = resp.body()?.refreshToken ?: throw RuntimeException("RefreshToken does`t have exist")
                 val exists = resp.body()?.isUserExists
                 val id = resp.body()?.userId
-                CheckResponseDTO(tokenDTO, refreshToken, exists, id)
                 Log.d(
                     "testApi",
                     "ха ха ура! " +
@@ -76,7 +76,7 @@ class AppRepositoryImpl @Inject constructor(
             }
             Log.d("testApi", "token ${token.toString()}")
         } else {
-            val  err = resp.body()?.error?.type
+            val  err = resp.body()
             Log.d("testApi", "Неудачная поптыка регистрации - ${resp.code()}, message ${err}")
         }
         return false
@@ -112,25 +112,24 @@ class AppRepositoryImpl @Inject constructor(
 
 
     //Profile
-    override suspend fun getProfileInfoUseCase():UserProfile {
+    override suspend fun getProfileInfoUseCase(): UserProfile? {
         val token = "Bearer $tokenDTO"
         val responseUserInfo = apiService.apiService.getInfoUser(token)
-        if (responseUserInfo.isSuccessful) {
-            val userInfo = responseUserInfo.body()!!.profileData
-            val avatarsDTO = responseUserInfo.body()!!.profileData.avatars
-            Log.d(
-                "testApi",
-                " успешно же,  id ${responseUserInfo.body()?.profileData?.id} name: ${responseUserInfo.body()?.profileData?.name}"
-            )
-            return mapper.profileDTOToEntity(userInfo)
-
-        } else {
-            Log.d("testApi", "неуспешный запрос профиля ${responseUserInfo.code()}")
+        when (responseUserInfo.isSuccessful) {
+            true -> {
+                val profileData = responseUserInfo.body()?.profileData
+                Log.d(
+                    "testApi",
+                    " успешно же,  id ${responseUserInfo.body()?.profileData?.id} name: ${responseUserInfo.body()?.profileData?.name}"
+                )
+                return profileData?.let { mapper.profileDTOToEntity(it) }
+            }
+            false -> {
+                Log.d("testApi", "неуспешный запрос профиля ${responseUserInfo.code()}")
+            }
         }
-        Log.d("testApi", "Давай по ново все хуня ${responseUserInfo.code()}")
-        return throw RuntimeException("Ошибка получение данных")
+        throw RuntimeException("Ошибка получение данных")
     }
-
 
 
     override suspend fun saveInfoUserUseCase(userPutInfo: UserPutInfo) {
@@ -140,13 +139,16 @@ class AppRepositoryImpl @Inject constructor(
         if(responseUserInfo.isSuccessful){
             Log.d(
                 "testApi",
-                " успешно же,  id ${responseUserInfo.body()?.avatar} }"
+                " успешно же,  id ${responseUserInfo.body()} "
             )
 
         }
+        else {
+            Log.d(
+                "testApi",
+                "неуспешное сохранение данных ${responseUserInfo.code()}"
+            )
+        }
     }
 }
-        private fun refreshToken(){
 
-
-        }

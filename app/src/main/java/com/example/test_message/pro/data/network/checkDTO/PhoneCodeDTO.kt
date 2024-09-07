@@ -3,14 +3,14 @@ package com.example.test_message.pro.data.network.checkDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class PhoneCodeDTO (
-
+data class PhoneCodeDTO(
     @SerializedName("phone")
     @Expose
-    val phone:String,
+    var phone: String? = null,
 
     @SerializedName("code")
     @Expose
-    val code:String
+    var code: String? = null,
 
-)
+    )
+

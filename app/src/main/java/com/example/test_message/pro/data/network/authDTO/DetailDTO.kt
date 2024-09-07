@@ -3,19 +3,18 @@ package com.example.test_message.pro.data.network.authDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class DetailDTO(
 
+data class Detail(
     @SerializedName("loc")
     @Expose
-    val loc:List<String> = ArrayList<String>(),
+    var loc: List<String> = ArrayList(),
 
     @SerializedName("msg")
     @Expose
-    val message:String,
+    var msg: String? = null,
 
     @SerializedName("type")
     @Expose
-    val type:String
+    var type: String? = null,
 
-
-)
+    )

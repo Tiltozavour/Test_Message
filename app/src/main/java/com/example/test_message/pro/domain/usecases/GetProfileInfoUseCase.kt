@@ -9,7 +9,7 @@ class GetProfileInfoUseCase @Inject constructor
     (private val repository: AppRepository)
 
 {
-    suspend fun invoke():UserProfile{
+    suspend fun invoke():UserProfile?{
       return repository.getProfileInfoUseCase()
     }
 

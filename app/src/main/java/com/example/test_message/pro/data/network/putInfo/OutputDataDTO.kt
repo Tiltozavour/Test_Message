@@ -4,35 +4,38 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class OutputDataDTO(
-
-
     @SerializedName("name")
     @Expose
-    val name: String,
+    var name: String? = null,
 
     @SerializedName("username")
     @Expose
-    val username: String,
+    var username: String? = null,
 
     @SerializedName("birthday")
     @Expose
-    val birthday: String,
+    var birthday: String? = null,
+
     @SerializedName("city")
     @Expose
-    val city: String,
+    var city: String? = null,
 
     @SerializedName("vk")
     @Expose
-    val vk: String,
+    var vk: String? = null,
+
     @SerializedName("instagram")
     @Expose
-    val instagram: String,
+    var instagram: String? = null,
 
     @SerializedName("status")
     @Expose
-    val status: String,
+    var status: String? = null,
 
     @SerializedName("avatar")
     @Expose
-    val avatar: AvatarPutDTO,
-)
+    var avatar: AvatarPutDTO? = null,
+
+    )
+
+
