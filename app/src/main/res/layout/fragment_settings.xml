@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     android:background="@color/secondaryColor"
-    tools:context=".pro.presentation.chatProfileActivity.SettingsFragment">
+    tools:context=".pro.presentation.old.chatProfileActivity.SettingsFragment">
 
 
     <ImageView

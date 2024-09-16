@@ -1,4 +1,4 @@
-package com.example.test_message.pro.presentation.viewModels
+package com.example.test_message.pro.presentation.old.viewModels
 
 import android.app.Application
 import com.example.test_message.pro.di.DaggerApplicationComponent

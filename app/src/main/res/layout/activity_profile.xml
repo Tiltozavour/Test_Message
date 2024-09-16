@@ -5,10 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainColor"
+    android:background="@color/firstColor"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".pro.presentation.chatProfileActivity.ProfileActivity">
+    tools:context=".pro.presentation.old.ProfileActivity.ProfileActivity">
 
 
     <ImageView

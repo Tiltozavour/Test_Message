@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class Detail(
+data class DetailDTO(
     @SerializedName("loc")
     @Expose
     var loc: List<String> = ArrayList(),
@@ -15,6 +15,6 @@ data class Detail(
 
     @SerializedName("type")
     @Expose
-    var type: String? = null,
+    var type: String? = null
 
     )

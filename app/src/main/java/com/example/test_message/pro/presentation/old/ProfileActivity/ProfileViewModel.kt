@@ -1,4 +1,4 @@
-package com.example.test_message.pro.presentation.viewModels
+package com.example.test_message.pro.presentation.old.ProfileActivity
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,12 +12,22 @@ import com.example.test_message.pro.domain.usecases.SaveInfoUserUseCase
 import kotlinx.coroutines.async
 import javax.inject.Inject
 
-
-class ChatViewModel @Inject constructor(
+class ProfileViewModel @Inject constructor(
     private val getChatList: GetListChatUseCase,
     private val getProfileInfo: GetProfileInfoUseCase,
     private val inputInfo: SaveInfoUserUseCase,
-) : ViewModel() {
+):ViewModel() {
+
+    data class ProfileState(
+        val isLoading: Boolean = true,
+        val hasProfile: Boolean = false,
+        val isError: Boolean = false
+    )
+
+    private val _profileState = MutableLiveData<ProfileState>()
+    val profileState:LiveData<ProfileState>
+        get() = _profileState
+
 
 
     private val _userProfile = MutableLiveData<UserProfile>()
@@ -41,6 +51,5 @@ class ChatViewModel @Inject constructor(
             inputInfo.invoke(userPutInfo)
         }.await()
     }
-
 
 }

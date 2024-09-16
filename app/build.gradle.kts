@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-
-    id ("kotlin-kapt")
     id("kotlin-parcelize")
+    id("androidx.navigation.safeargs")
+    id ("kotlin-kapt")
 }
 
 android {
@@ -59,16 +59,19 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     //Lifecycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
     //Number
     implementation(libs.ccp)
     //DI
     implementation (libs.dagger)
     kapt (libs.dagger.compiler)
 
-    //annotationProcessor (libs.dagger.compiler)
-    //Navigation
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
+    // Views/Fragments integration
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
+    // Feature module support for Fragments
+    implementation(libs.androidx.navigation.dynamic.features.fragment)
+
     //Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

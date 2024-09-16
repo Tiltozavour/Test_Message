@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/logInFragment">
+
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.example.test_message.pro.presentation.activityEntry.logIn.LogInFragment"
+        android:label="fragment_log_in"
+        tools:layout="@layout/fragment_log_in">
+        <action
+            android:id="@+id/action_logInFragment_to_authCodeFragment"
+            app:destination="@id/authCodeFragment" />
+        <action
+            android:id="@+id/action_logInFragment_to_registrationFragment2"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authCodeFragment"
+        android:name="com.example.test_message.pro.presentation.activityEntry.authorization.AuthCodeFragment"
+        android:label="fragment_auth_code"
+        tools:layout="@layout/fragment_auth_code" >
+        <argument
+            android:name="phoneUser"
+            app:argType="com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity" />
+        <action
+            android:id="@+id/action_authCodeFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_authCodeFragment_to_chatActivity"
+            app:destination="@id/chatActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.example.test_message.pro.presentation.activityEntry.registration.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
+        <argument
+            android:name="pnoneUser"
+            app:argType="com.example.test_message.pro.domain.entity.userActivity.PhoneUserEntity" />
+        <action
+            android:id="@+id/action_registrationFragment_to_chatActivity"
+            app:destination="@id/chatActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/chatActivity"
+        android:name="com.example.test_message.pro.presentation.old.chatProfileActivity.ChatActivity"
+        android:label="activity_chat"
+        tools:layout="@layout/activity_chat" />
+</navigation>

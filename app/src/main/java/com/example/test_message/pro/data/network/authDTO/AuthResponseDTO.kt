@@ -11,7 +11,7 @@ data class AuthResponseDTO(
 
     @SerializedName("detail")
     @Expose
-    var detail: List<Detail> = ArrayList(),
+    var detail: List<DetailDTO> = ArrayList(),
 
     )
 

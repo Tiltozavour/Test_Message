@@ -1,29 +1,23 @@
-package com.example.test_message.pro.presentation.chatProfileActivity
+package com.example.test_message.pro.presentation.old.ProfileActivity
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.test_message.R
 import com.example.test_message.databinding.ActivityProfileBinding
-import com.example.test_message.pro.domain.entity.chatEntity.UserProfile
-import com.example.test_message.pro.presentation.viewModels.ChatViewModel
-import com.example.test_message.pro.presentation.viewModels.MessageApp
-import com.example.test_message.pro.presentation.viewModels.ViewModelFactory
-import kotlinx.coroutines.launch
+import com.example.test_message.pro.presentation.old.chatProfileActivity.ChatActivity
+import com.example.test_message.pro.presentation.old.chatProfileActivity.SettingsFragment
+import com.example.test_message.pro.presentation.ViewModelFactory
 import javax.inject.Inject
 
 class ProfileActivity : AppCompatActivity(),
- SettingsFragment.getVisibility{
+    SettingsFragment.getVisibility {
 
     private val binding by lazy {
         ActivityProfileBinding.inflate(layoutInflater)
@@ -31,16 +25,12 @@ class ProfileActivity : AppCompatActivity(),
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var viewModel:ChatViewModel
+    private lateinit var viewModel: ProfileViewModel
 
-
-    private val component by lazy {
-        (application as MessageApp).component
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        component.inject(this)
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
@@ -49,14 +39,16 @@ class ProfileActivity : AppCompatActivity(),
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        viewModel = ViewModelProvider(this, viewModelFactory)[ChatViewModel::class.java]
-        getProfileFromBase()
-        buttonNavigation()
+        viewModel = ViewModelProvider(this, viewModelFactory)[ProfileViewModel::class.java]
+
+        //getProfileFromBase()
+        //buttonNavigation()
         binding.dotSetting.setOnClickListener {
-            launchSettingsPage()
+            //launchSettingsPage()
             binding.dotSetting.visibility = View.GONE
         }
     }
+
 
 
     private fun buttonNavigation() {
@@ -75,7 +67,7 @@ class ProfileActivity : AppCompatActivity(),
     }
 
 
-    private fun getProfileFromBase() {
+/*    private fun getProfileFromBase() {
         lifecycleScope.launch {
             viewModel.getProfileInfo()
             setInfo()
@@ -102,7 +94,7 @@ class ProfileActivity : AppCompatActivity(),
             .replace(R.id.fragmentChatContainer, SettingsFragment.newInstance())
             .addToBackStack(null)
             .commit()
-    }
+    }*/
 
     override fun visibility() {
        binding.dotSetting.visibility = View.VISIBLE

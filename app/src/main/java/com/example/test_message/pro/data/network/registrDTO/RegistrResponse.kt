@@ -1,6 +1,7 @@
 package com.example.test_message.pro.data.network.registrDTO
 
-import com.example.test_message.pro.data.network.authDTO.Detail
+
+import com.example.test_message.pro.data.network.authDTO.DetailDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -20,5 +21,5 @@ data class RegistrResponse(
 
     @SerializedName("detail")
     @Expose
-    var detail: List<Detail> = ArrayList()
+    var detail: List<DetailDTO> = ArrayList()
 )

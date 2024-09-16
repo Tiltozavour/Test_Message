@@ -1,4 +1,4 @@
-package com.example.test_message.pro.presentation.chatProfileActivity
+package com.example.test_message.pro.presentation.old.chatProfileActivity
 
 import android.content.Context
 import android.os.Bundle
@@ -11,10 +11,9 @@ import androidx.lifecycle.lifecycleScope
 import com.example.test_message.databinding.FragmentSettingsBinding
 import com.example.test_message.pro.domain.entity.chatEntity.AvatarPut
 import com.example.test_message.pro.domain.entity.chatEntity.UserPutInfo
-import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
-import com.example.test_message.pro.presentation.viewModels.ChatViewModel
-import com.example.test_message.pro.presentation.viewModels.MessageApp
-import com.example.test_message.pro.presentation.viewModels.ViewModelFactory
+import com.example.test_message.pro.presentation.old.viewModels.ChatViewModel
+import com.example.test_message.pro.presentation.old.viewModels.MessageApp
+import com.example.test_message.pro.presentation.ViewModelFactory
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,7 +27,7 @@ class SettingsFragment : Fragment() {
             ?: throw RuntimeException("Attempt to call binding methods outside the view")
 
 
-    private lateinit var visibility:getVisibility
+    private lateinit var visibility: getVisibility
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -41,9 +40,9 @@ class SettingsFragment : Fragment() {
 
 
     override fun onAttach(context: Context) {
-        component.inject(this)
+       // component.inject(this)
         super.onAttach(context)
-        if (context is SettingsFragment.getVisibility) {
+        if (context is getVisibility) {
             visibility = context
         } else {
             throw RuntimeException("Activity must implement Visibility")

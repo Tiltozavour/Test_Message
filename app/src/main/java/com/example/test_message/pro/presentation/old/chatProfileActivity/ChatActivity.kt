@@ -1,9 +1,8 @@
-package com.example.test_message.pro.presentation.chatProfileActivity
+package com.example.test_message.pro.presentation.old.chatProfileActivity
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -12,13 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.test_message.R
 import com.example.test_message.databinding.ActivityChatBinding
 import com.example.test_message.pro.domain.entity.chatEntity.ChatEntity
-import com.example.test_message.pro.domain.entity.userActivity.UserInfoEntity
-import com.example.test_message.pro.presentation.loginAndRegisActivity.LogInAndRegistrationActivity
-import com.example.test_message.pro.presentation.recyclerView.ChatListRVAdapter
-import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
-import com.example.test_message.pro.presentation.viewModels.ChatViewModel
-import com.example.test_message.pro.presentation.viewModels.MessageApp
-import com.example.test_message.pro.presentation.viewModels.ViewModelFactory
+import com.example.test_message.pro.presentation.old.ProfileActivity.ProfileActivity
+import com.example.test_message.pro.presentation.old.recyclerView.ChatListRVAdapter
+import com.example.test_message.pro.presentation.old.viewModels.ChatViewModel
+import com.example.test_message.pro.presentation.old.viewModels.MessageApp
+import com.example.test_message.pro.presentation.ViewModelFactory
 import javax.inject.Inject
 
 class ChatActivity : AppCompatActivity() {
@@ -29,7 +26,7 @@ class ChatActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var viewModel:ChatViewModel
+    private lateinit var viewModel: ChatViewModel
 
 
     private val component by lazy {
@@ -41,7 +38,7 @@ class ChatActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        component.inject(this)
+        //component.inject(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)

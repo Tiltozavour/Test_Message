@@ -1,4 +1,4 @@
-package com.example.test_message.pro.presentation.chatProfileActivity
+package com.example.test_message.pro.presentation.old.chatProfileActivity
 
 import android.content.Context
 import android.content.Intent
@@ -8,13 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.test_message.R
 import com.example.test_message.databinding.ActivityDialogChatBinding
-import com.example.test_message.pro.presentation.recyclerView.ChatAdapter
-import com.example.test_message.pro.presentation.recyclerView.ChatListRVAdapter
-import com.example.test_message.pro.presentation.viewModels.ChatViewModel
-import com.example.test_message.pro.presentation.viewModels.MessageApp
-import com.example.test_message.pro.presentation.viewModels.ViewModelFactory
+import com.example.test_message.pro.presentation.old.recyclerView.ChatAdapter
+import com.example.test_message.pro.presentation.old.viewModels.ChatViewModel
+import com.example.test_message.pro.presentation.old.viewModels.MessageApp
+import com.example.test_message.pro.presentation.ViewModelFactory
 import javax.inject.Inject
 
 class DialogChatActivity : AppCompatActivity() {
@@ -25,7 +23,7 @@ class DialogChatActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var viewModel:ChatViewModel
+    private lateinit var viewModel: ChatViewModel
 
 
     private val component by lazy {
@@ -37,7 +35,7 @@ class DialogChatActivity : AppCompatActivity() {
     private lateinit var adapterList: ChatAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        component.inject(this)
+        //component.inject(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)

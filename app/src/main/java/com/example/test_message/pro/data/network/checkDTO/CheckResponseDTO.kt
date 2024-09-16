@@ -1,6 +1,5 @@
 package com.example.test_message.pro.data.network.checkDTO
-
-import com.example.test_message.pro.data.network.authDTO.Detail
+import com.example.test_message.pro.data.network.authDTO.DetailDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -23,7 +22,7 @@ data class CheckResponseDTO(
 
     @SerializedName("detail")
     @Expose
-    var detail: List<Detail> = ArrayList(),
+    var detail: List<DetailDTO> = ArrayList(),
 
     )
 

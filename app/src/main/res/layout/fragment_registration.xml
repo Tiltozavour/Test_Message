@@ -9,12 +9,12 @@
     android:gravity="center"
     android:background="@color/secondaryColor"
     android:orientation="vertical"
-    tools:context=".pro.presentation.loginAndRegisActivity.RegistrationFragment">
+    tools:context=".pro.presentation.activityEntry.registration.RegistrationFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text = "@string/GetRegist"
+        android:text = "@string/GetRegistration"
         android:textSize="18sp"
         android:textAlignment="center"
         />
@@ -23,14 +23,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:padding="5dp"
         android:contentDescription="@string/DescriptionTint"
         android:src="@drawable/ohegao_reg" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
+        android:padding="5dp"
         app:cardCornerRadius="10dp"
         app:cardBackgroundColor="@color/bgColor"
         app:cardElevation="1dp"
@@ -105,7 +105,7 @@
                 android:layout_margin="14dp"
                 android:background="@drawable/buttons"
                 android:padding="14dp"
-                android:text="@string/Autorization"/>
+                android:text="@string/Authorization"/>
 
 
         </LinearLayout>

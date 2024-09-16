@@ -1,4 +1,4 @@
-package com.example.test_message.pro.presentation.viewModels
+package com.example.test_message.pro.presentation.old.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

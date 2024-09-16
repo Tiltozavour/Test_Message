@@ -25,16 +25,13 @@ class AppMapper @Inject constructor() {
 
     fun mapEntityToCodeDTO(phoneCode: PhoneCode): PhoneCodeDTO {
         return PhoneCodeDTO(
-            phone = phoneCode.phone,
-            code = phoneCode.phoneCode
+            phone = phoneCode.phone, code = phoneCode.phoneCode
         )
     }
 
     fun mapEntityToUserInfoDTO(user: UserInfoEntity): UserInfoDTO {
         return UserInfoDTO(
-            phone = user.phone,
-            name = user.name,
-            username = user.username
+            phone = user.phone, name = user.name, username = user.username
         )
     }
 
@@ -55,32 +52,29 @@ class AppMapper @Inject constructor() {
             phone = profileData.phone,
             completedTask = profileData.completedTask,
             avatars = AvatarGet(
-                avatar =  profileData.avatars?.avatar,
+                avatar = profileData.avatars?.avatar,
                 bigAvatar = profileData.avatars?.bigAvatar,
                 miniAvatar = profileData.avatars?.miniAvatar
             )
-            )
+        )
     }
 
-    fun mapPutEntityToPutDTO(userPutInfo: UserPutInfo):OutputDataDTO{
+    fun mapPutEntityToPutDTO(userPutInfo: UserPutInfo): OutputDataDTO {
         return OutputDataDTO(
             name = userPutInfo.name,
             username = userPutInfo.username ?: "",
             birthday = userPutInfo.birthday ?: "",
             city = userPutInfo.city ?: "",
-            vk =  userPutInfo.city ?:"",
-            instagram = userPutInfo.instagram?:"",
-            status = userPutInfo.status?:"",
+            vk = userPutInfo.city ?: "",
+            instagram = userPutInfo.instagram ?: "",
+            status = userPutInfo.status ?: "",
             avatar = AvatarPutDTO(
-                filename = userPutInfo.avatar?.filename,
-                base64 = userPutInfo.avatar?.base64
+                filename = userPutInfo.avatar?.filename, base64 = userPutInfo.avatar?.base64
             )
         )
 
 
     }
-
-
 
 
 }

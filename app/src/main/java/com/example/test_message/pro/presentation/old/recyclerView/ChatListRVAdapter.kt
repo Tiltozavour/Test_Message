@@ -1,4 +1,4 @@
-package com.example.test_message.pro.presentation.recyclerView
+package com.example.test_message.pro.presentation.old.recyclerView
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ import com.example.test_message.pro.domain.entity.chatEntity.ChatEntity
 class ChatListRVAdapter :
     ListAdapter<ChatEntity, ChatListRVAdapter.chatViewHolder>(ChatListDiffCallback()) {
 
-        var onChatClick:onChatClickListener? = null
+        var onChatClick: onChatClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): chatViewHolder {
         val binding = ChatItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

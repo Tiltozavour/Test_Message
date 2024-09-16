@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/secondaryColor"
-    tools:context=".pro.presentation.chatProfileActivity.DialogChatActivity">
+    tools:context=".pro.presentation.old.chatProfileActivity.DialogChatActivity">
 
 
     <androidx.recyclerview.widget.RecyclerView

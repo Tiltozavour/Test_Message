@@ -10,30 +10,29 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/icon_avatar"
         android:label="@string/app_name"
-        android:name=".pro.presentation.viewModels.MessageApp"
+        android:name=".pro.presentation.old.viewModels.MessageApp"
         android:roundIcon="@drawable/icon_avatar"
         android:supportsRtl="true"
         android:theme="@style/Theme.Test_Message"
         android:windowSoftInputMode="adjustResize"
         tools:targetApi="31">
-        <activity
-            android:name=".pro.presentation.chatProfileActivity.DialogChatActivity"
+       <!-- <activity
+            android:name=".pro.presentation.old.chatProfileActivity.DialogChatActivity"
             android:exported="false" />
         <activity
-            android:name=".pro.presentation.chatProfileActivity.ProfileActivity"
+            android:name=".pro.presentation.old.ProfileActivity.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".pro.presentation.chatProfileActivity.ChatActivity"
+            android:name=".pro.presentation.old.chatProfileActivity.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".pro.presentation.loginAndRegisActivity.LogInAndRegistrationActivity"
-            android:exported="false" />
+            android:name=".pro.presentation.old.loginAndRegisActivity.LogInAndRegistrationActivity"
+            android:exported="false" />-->
         <activity
-            android:name=".pro.presentation.loginAndRegisActivity.MainActivity"
+            android:name=".pro.presentation.activityEntry.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

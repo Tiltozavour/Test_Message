@@ -1,22 +1,20 @@
-package com.example.test_message.pro.presentation.loginAndRegisActivity
+package com.example.test_message.pro.presentation.old.loginAndRegisActivity
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.test_message.R
 import com.example.test_message.databinding.ActivityLogInAndRegistrationBinding
+import com.example.test_message.pro.presentation.activityEntry.authorization.AuthCodeFragment
 
 
+class LogInAndRegistrationActivity : AppCompatActivity() {
 
-class LogInAndRegistrationActivity : AppCompatActivity(),
-    RegistrationFragment.OnShowingToastListener,
-    AuthCodeFragment.OnShowingToastListener {
-
+/*
 
     private val binding by lazy {
         ActivityLogInAndRegistrationBinding.inflate(layoutInflater)
@@ -54,17 +52,21 @@ class LogInAndRegistrationActivity : AppCompatActivity(),
             .commit()
     }
 
-    override fun onShowingErrorToast() {
+ */
+/*   override fun onShowingErrorToast() {
         Toast.makeText(this, error_toast_text,Toast.LENGTH_LONG).show()
     }
 
     override fun onShowingToast() {
         Toast.makeText(this, messageToast,Toast.LENGTH_LONG).show()
-    }
+    }*//*
 
-    override fun onShowingToastAuth() {
+
+ */
+/*   override fun onShowingToastAuth() {
        Toast.makeText(this, toast_text,Toast.LENGTH_LONG).show()
-    }
+    }*//*
+
 
     companion object {
 
@@ -89,6 +91,7 @@ class LogInAndRegistrationActivity : AppCompatActivity(),
 
     }
 
+*/
 
 
 

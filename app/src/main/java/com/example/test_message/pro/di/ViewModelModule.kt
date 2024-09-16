@@ -1,8 +1,8 @@
 package com.example.test_message.pro.di
 
 import androidx.lifecycle.ViewModel
-import com.example.test_message.pro.presentation.viewModels.AuthRegistViewModel
-import com.example.test_message.pro.presentation.viewModels.ChatViewModel
+import com.example.test_message.pro.presentation.activityEntry.authorization.AuthorizationViewModel
+import com.example.test_message.pro.presentation.activityEntry.logIn.LogInViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -12,12 +12,12 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(AuthRegistViewModel::class)
-    fun bindsAuthRegistViewModel(viewModel:AuthRegistViewModel):ViewModel
+    @ViewModelKey(LogInViewModel::class)
+    fun bindsLogInViewModel(viewModel:LogInViewModel):ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(ChatViewModel::class)
-    fun bindsChatViewModel(viewModel:ChatViewModel):ViewModel
+    @ViewModelKey(AuthorizationViewModel::class)
+    fun bindsAuthViewModel(viewModel:AuthorizationViewModel):ViewModel
 
 }
